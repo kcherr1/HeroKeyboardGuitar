@@ -22,8 +22,10 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             btnStart = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // btnStart
@@ -33,23 +35,35 @@
             btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             btnStart.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnStart.ForeColor = System.Drawing.Color.Black;
-            btnStart.Location = new System.Drawing.Point(468, 476);
+            btnStart.Location = new System.Drawing.Point(535, 635);
+            btnStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnStart.Name = "btnStart";
-            btnStart.Size = new System.Drawing.Size(339, 90);
+            btnStart.Size = new System.Drawing.Size(387, 120);
             btnStart.TabIndex = 0;
             btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = false;
             btnStart.Click += btnStart_Click;
             // 
+            // button1
+            // 
+            button1.Location = new System.Drawing.Point(620, 789);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(213, 42);
+            button1.TabIndex = 1;
+            button1.Text = "cherry ";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // FrmTitle
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.title;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            ClientSize = new System.Drawing.Size(1229, 664);
+            ClientSize = new System.Drawing.Size(1405, 885);
+            Controls.Add(button1);
             Controls.Add(btnStart);
             DoubleBuffered = true;
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "FrmTitle";
             Text = "Hero Keyboard Guitar";
             WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -60,5 +74,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button button1;
     }
 }
