@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroKeyboardGuitar", "HeroKeyboardGuitar\HeroKeyboardGuitar.csproj", "{74104662-FFF7-46DD-BBBA-B634A341D389}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1E1AF2D8-49CF-4D0D-9608-E98D8195C446} = {1E1AF2D8-49CF-4D0D-9608-E98D8195C446}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioAnalyzing", "AudioAnalyzing\AudioAnalyzing.csproj", "{1E1AF2D8-49CF-4D0D-9608-E98D8195C446}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioAnalyzing", "AudioAnalyzing\AudioAnalyzing.csproj", "{1E1AF2D8-49CF-4D0D-9608-E98D8195C446}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
