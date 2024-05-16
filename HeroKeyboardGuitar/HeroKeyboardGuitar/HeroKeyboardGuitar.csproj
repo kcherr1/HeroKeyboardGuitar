@@ -12,8 +12,8 @@
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="NAudio.WinForms" Version="2.2.1" />
-    <PackageReference Include="ScottPlot" Version="5.0.27" />
-    <PackageReference Include="ScottPlot.WinForms" Version="5.0.27" />
+    <PackageReference Include="ScottPlot" Version="5.0.29" />
+    <PackageReference Include="ScottPlot.WinForms" Version="5.0.29" />
   </ItemGroup>
 
   <ItemGroup>
