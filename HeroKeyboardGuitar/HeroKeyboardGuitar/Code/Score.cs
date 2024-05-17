@@ -1,4 +1,6 @@
-﻿namespace HeroKeyboardGuitar;
+﻿using System;
+
+namespace HeroKeyboardGuitar;
 
 /// <summary>
 /// Holds the current score and streak of the player
@@ -45,5 +47,10 @@ public class Score {
     /// </summary>
     public void Miss() {
         Streak = 0;
+    }
+
+    public void Deduct(int amount) {
+        Amount = Math.Max(0, Amount - amount);
+        Miss();
     }
 }

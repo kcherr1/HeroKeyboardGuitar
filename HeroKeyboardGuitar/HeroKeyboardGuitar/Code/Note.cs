@@ -1,4 +1,5 @@
 ﻿using HeroKeyboardGuitar.Properties;
+using System.Diagnostics.Eventing.Reader;
 using System.Windows.Forms;
 
 namespace HeroKeyboardGuitar;
@@ -74,16 +75,25 @@ public class Note {
     /// </summary>
     /// <param name="picTarget">PictureBox object for player's target zone</param>
     /// <returns>True if note was just hit, false if it wasn't hit or was already previously hit</returns>
-    public bool CheckHit(PictureBox picTarget) {
-        if (Pic.Left < picTarget.Left + picTarget.Width && Pic.Left + Pic.Width > picTarget.Left && State == NoteState.TRAVELING) {
-            Pic.BackgroundImage = Resources.marker_hit;
-            State = NoteState.HIT;
-            return true;
+    public bool CheckHit(PictureBox picTarget, bool isTap) {
+        if (Pic.Left < picTarget.Left + picTarget.Width && Pic.Left + Pic.Width > picTarget.Left && State == NoteState.TRAVELING)
+        {
+            if (isTap)
+            {
+                Pic.BackgroundImage = Resources.marker_hit;
+                State = NoteState.HIT;
+                return true;
+            }
+            else
+            {
+                Pic.BackgroundImage = Resources.marker_miss;
+                State = NoteState.MISS;
+            }
         }
-        else {
-            return false;
-        }
+        return false;
     }
+
+
 
     /// <summary>
     /// Checks if the player has missed this note. If so, the note will be marked as missed and

@@ -13,6 +13,12 @@ internal partial class FrmMain : Form {
     private const float noteSpeed = 0.5f;
     private Audio curSong;
     private Score score;
+    private DateTime lastSpacePress = DateTime.MinValue;
+    public bool isSpacebarHeld = false;
+    private bool isTap = false;
+    private DateTime spacePressTime;
+
+
 
     // for double buffering
     protected override CreateParams CreateParams {
@@ -84,22 +90,31 @@ internal partial class FrmMain : Form {
     }
 
     private void FrmMain_KeyPress(object sender, KeyPressEventArgs e) {
-        foreach (var note in notes) {
-            if (note.CheckHit(picTarget)) {
-                score.Add(1);
-                lblScore.Text = score.Amount.ToString();
-                lblScore.Font = new("Arial", 42);
-                break;
-            }
-        }
+        
     }
 
     private void FrmMain_KeyDown(object sender, KeyEventArgs e) {
-        picTarget.BackgroundImage = Resources.pressed;
+        if (e.KeyCode == Keys.Space) {
+            spacePressTime = DateTime.Now;
+            isSpacebarHeld = false;
+            picTarget.BackgroundImage = Resources.pressed;
+        }
     }
 
     private void FrmMain_KeyUp(object sender, KeyEventArgs e) {
-        picTarget.BackgroundImage = Resources._default;
+        if (e.KeyCode == Keys.Space) {
+            var duration = (DateTime.Now - spacePressTime).TotalMilliseconds;
+            if (duration < 100) {
+                isTap = true;
+                ProcessNoteHitOrMiss();
+            }
+            else {
+                isTap = false;
+                isSpacebarHeld = true;
+                ProcessNoteMiss();
+            }
+            picTarget.BackgroundImage = Resources._default;
+        }
     }
 
     private void FrmMain_FormClosing(object sender, FormClosingEventArgs e) {
@@ -109,6 +124,34 @@ internal partial class FrmMain : Form {
     private void tmrScoreShrink_Tick(object sender, EventArgs e) {
         if (lblScore.Font.Size > 20) {
             lblScore.Font = new("Arial", lblScore.Font.Size - 1);
+        }
+    }
+
+    private void ProcessNoteHitOrMiss() {
+        bool noteHit = false;
+        foreach (var note in notes) {
+            if (note.CheckHit(picTarget, isTap)) {
+                score.Add(1);
+                lblScore.Text = score.Amount.ToString();
+                lblScore.Font = new Font("Arial", 42);
+                noteHit = true;
+                break;
+            }
+        }
+        if (!noteHit && isTap) {
+            score.Deduct(1);
+            lblScore.Text = score.Amount.ToString();
+        }
+    }
+
+    private void ProcessNoteMiss() {
+        score.Deduct(1);
+        lblScore.Text = score.Amount.ToString();
+
+        foreach (var note in notes) {
+            if (note.CheckMiss(picTarget)) {
+                break;
+            }
         }
     }
 }
