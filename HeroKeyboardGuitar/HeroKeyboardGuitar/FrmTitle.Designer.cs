@@ -25,7 +25,6 @@
         private void InitializeComponent()
         {
             btnStart = new System.Windows.Forms.Button();
-            button1 = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // btnStart
@@ -44,15 +43,6 @@
             btnStart.UseVisualStyleBackColor = false;
             btnStart.Click += btnStart_Click;
             // 
-            // button1
-            // 
-            button1.Location = new System.Drawing.Point(620, 789);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(213, 42);
-            button1.TabIndex = 1;
-            button1.Text = "cherry ";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // FrmTitle
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -60,7 +50,6 @@
             BackgroundImage = Properties.Resources.title;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             ClientSize = new System.Drawing.Size(1405, 885);
-            Controls.Add(button1);
             Controls.Add(btnStart);
             DoubleBuffered = true;
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -74,6 +63,5 @@
         #endregion
 
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button button1;
     }
 }

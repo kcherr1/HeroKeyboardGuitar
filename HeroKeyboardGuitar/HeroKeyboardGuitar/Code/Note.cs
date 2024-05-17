@@ -38,6 +38,7 @@ public class Note {
     /// Image shown to player
     /// </summary>
     public PictureBox Pic { get; private set; }
+ 
 
     private double xPos;
 
