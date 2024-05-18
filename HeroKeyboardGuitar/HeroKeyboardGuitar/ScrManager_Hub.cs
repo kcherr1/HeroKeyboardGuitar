@@ -3,10 +3,10 @@ using System.Windows.Forms;
 
 namespace HeroKeyboardGuitar;
 
-internal partial class FrmTitle : UserControl
+internal partial class ScrManager_Hub : UserControl
 {
     public ScreenSwapHandler handler;
-    public FrmTitle()
+    public ScrManager_Hub()
     {
         InitializeComponent();
     }
@@ -17,7 +17,7 @@ internal partial class FrmTitle : UserControl
         frmSongSelect.Show();
     }
 
-    private void FrmTitle_Load(object sender, EventArgs e)
+    private void ScrManager_Hub_Load(object sender, EventArgs e)
     {
         /*
         btnStart.Left = Width / 2 - btnStart.Width / 2;
@@ -30,18 +30,18 @@ internal partial class FrmTitle : UserControl
         handler.gotoSongSelect();
     }
 
-    private void btn_songManageClicked(object sender, EventArgs e)
+    private void btn_addClicked(object sender, EventArgs e)
     {
-        handler.gotoSongManage();
+
     }
 
-    private void btn_settingsClicked(object sender, EventArgs e)
+    private void btn_deleteClicked(object sender, EventArgs e)
     {
-       
+
     }
 
-    private void btn_quitClicked(object sender, EventArgs e)
+    private void btn_backClicked(object sender, EventArgs e)
     {
-           
+        handler.gotoTitle();
     }
 }
