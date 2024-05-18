@@ -17,10 +17,10 @@ namespace HeroKeyboardGuitar {
     {
         private readonly string SONGS_ROOT_PATH = $"{Application.StartupPath}../../../Songs/";
         // COLIN: I might have to change the filepath to the images/songs to something similar to these Application Startup Lines
-        //private readonly string PICS_ROOT_PATH = $"{Application.StartupPath}../../../Resources/";
-        
-        
-        
+        private readonly string PICS_ROOT_PATH = $"{Application.StartupPath}../../../Resources/";
+
+
+
         // Dictionary that stores <filepath, genre> 
         Dictionary<string, HeroKeyboardGuitar.GenreType> songs = new Dictionary<string, HeroKeyboardGuitar.GenreType>();
 
@@ -43,6 +43,7 @@ namespace HeroKeyboardGuitar {
         }
         private void FrmSongSelect_Load(object sender, EventArgs e)
         {
+            
 
             // Add music to combo boxes (AKA dropdown menus)
             foreach (var songFilePath in Directory.GetFiles(SONGS_ROOT_PATH))
@@ -82,7 +83,7 @@ namespace HeroKeyboardGuitar {
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             // Load highly saturated image
-            pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture2.jpg");
+            pictureBox1.BackgroundImage = Properties.Resources.Picture2;
             // Make the combobox visible 
             comboBox1.Visible = true;
 
@@ -106,7 +107,7 @@ namespace HeroKeyboardGuitar {
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             // Load highly saturated image
-            pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture3.jpg");
+            pictureBox2.BackgroundImage = Properties.Resources.Picture3;
             // Make the combobox visible 
             comboBox2.Visible = true;
 
@@ -131,7 +132,7 @@ namespace HeroKeyboardGuitar {
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             // Load funny mario gif
-            pictureBox3.Image = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\ezgif-1-453554342f.gif");
+            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
             // Make the combobox visible
             comboBox3.Visible = true;
 
@@ -157,36 +158,36 @@ namespace HeroKeyboardGuitar {
         private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
             // Image Color 
-            pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\rnb - Copy.jpeg");
+            pictureBox1.BackgroundImage = Properties.Resources.rnb___Copy;
 
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome 
-            pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture1.jpg");
+            pictureBox1.BackgroundImage = Properties.Resources.Picture1;
 
         }
 
         private void pictureBox2_MouseEnter(object sender, EventArgs e)
         {
             // Image Color 
-            pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\pop - Copy.jpeg");
+            pictureBox2.BackgroundImage = Properties.Resources.pop___Copy;
 
-        
+
         }
 
         private void pictureBox2_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome
-            pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture4.jpg");
+            pictureBox2.BackgroundImage = Properties.Resources.Picture4;
 
         }
 
         private void pictureBox3_MouseEnter(object sender, EventArgs e)
         {
             // Image Color
-            pictureBox3.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\mario.jpg");
+            pictureBox3.BackgroundImage = Properties.Resources.mario;
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
 
         }
@@ -195,28 +196,28 @@ namespace HeroKeyboardGuitar {
         {
             // Image MonoChrome
             pictureBox3.Image = null;
-            pictureBox3.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture6.jpg");
+            pictureBox3.BackgroundImage = Properties.Resources.Picture6;
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox1_MouseEnter(object sender, EventArgs e)
         {
             // Image Saturation
-            pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture2.jpg");
+            pictureBox1.BackgroundImage = Properties.Resources.Picture2;
 
         }
 
         private void comboBox1_MouseHover(object sender, EventArgs e)
         {
             // Image Saturation (just in case)
-            pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture2.jpg");
+            pictureBox1.BackgroundImage = Properties.Resources.Picture2;
 
         }
 
         private void comboBox1_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome
-            pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture2.jpg");
+            pictureBox1.BackgroundImage = Properties.Resources.Picture2;
             // Remove ComboBox
             comboBox1.Visible = false;
 
@@ -225,21 +226,21 @@ namespace HeroKeyboardGuitar {
         private void comboBox2_MouseHover(object sender, EventArgs e)
         {
             // Image Saturation
-            pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture3.jpg");
+            pictureBox2.BackgroundImage = Properties.Resources.Picture3;
 
         }
 
         private void comboBox2_MouseEnter(object sender, EventArgs e)
         {
             // Image Saturation (Just in case)
-            pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture3.jpg");
+            pictureBox2.BackgroundImage = Properties.Resources.Picture3;
 
         }
 
         private void comboBox2_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome
-            pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture3.jpg");
+            pictureBox2.BackgroundImage = Properties.Resources.Picture3;
             // Remove ComboBox
             comboBox2.Visible = false;
         }
@@ -247,21 +248,21 @@ namespace HeroKeyboardGuitar {
         private void comboBox3_MouseEnter(object sender, EventArgs e)
         {
             // Image Saturation
-            pictureBox3.Image = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\ezgif-1-453554342f.gif");
+            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
 
         }
 
         private void comboBox3_MouseHover(object sender, EventArgs e)
         {
             // Image Saturation
-            pictureBox3.Image = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\ezgif-1-453554342f.gif");
+            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
 
         }
 
         private void comboBox3_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome 
-            pictureBox3.Image = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\ezgif-1-453554342f.gif");
+            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
             // Remove ComboBox
             comboBox3.Visible = false;
 
@@ -286,6 +287,10 @@ namespace HeroKeyboardGuitar {
                     button2.Visible = false;
                     button3.Visible = false;
                 }
+                if (button1.Visible)
+                {
+                    button1.Text = "START " + comboBox1.SelectedItem + "!!!";
+                }
             }
 
         }
@@ -307,6 +312,10 @@ namespace HeroKeyboardGuitar {
                 {
                     button1.Visible = false;
                     button3.Visible = false;
+                }
+                if (button2.Visible)
+                {
+                    button2.Text = "START " + comboBox2.SelectedItem + "!!!";
                 }
             }
 
@@ -330,6 +339,10 @@ namespace HeroKeyboardGuitar {
                 {
                     button1.Visible = false;
                     button2.Visible = false;
+                }
+                if (button3.Visible)
+                {
+                    button3.Text = "START " + comboBox3.SelectedItem + "!!!";
                 }
             }
 

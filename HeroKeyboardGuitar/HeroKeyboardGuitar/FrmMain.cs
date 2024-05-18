@@ -18,6 +18,8 @@ internal partial class FrmMain : Form {
     private bool isTap = false;
     private DateTime spacePressTime;
 
+    // COLIN: Try to get the game to pause 
+    public bool isPaused = false;
 
 
     // for double buffering
@@ -46,6 +48,7 @@ internal partial class FrmMain : Form {
             if (notes.Any(note => (x - note.Pic.Left) < noteSize / 2)) {
                 continue;
             }
+            // Create note 
             PictureBox picNote = new() {
                 BackColor = Color.Black,
                 ForeColor = Color.Black,
@@ -57,14 +60,19 @@ internal partial class FrmMain : Form {
                 BackgroundImageLayout = ImageLayout.Stretch,
                 Anchor = AnchorStyles.Bottom,
             };
+            // Add the control
             Controls.Add(picNote);
+            // Add note to the list 
             notes.Add(new(picNote, x));
         }
+        // Create timer for brief pause at beginning 
         Timer tmrWaitThenPlay = new() {
             Interval = 1000,
             Enabled = true,
         };
+        // Add timer for brief pause at beginning 
         components.Add(tmrWaitThenPlay);
+        // 
         tmrWaitThenPlay.Tick += (e, sender) => {
             Game.GetInstance().CurSong.Play();
             tmrWaitThenPlay.Enabled = false;
@@ -75,11 +83,21 @@ internal partial class FrmMain : Form {
     private void tmrPlay_Tick(object sender, EventArgs e) {
         int index = curSong.GetPosition();
         foreach (var note in notes) {
-            // Move the Notes
-            note.Move(tmrPlay.Interval * (noteSpeed * 1.3));
-            if (note.CheckMiss(picTarget)) {
-                score.Miss();
+           
+            if (!isPaused)
+            {
+                // Move the Notes?
+                note.Move(tmrPlay.Interval * (noteSpeed * 1.3));
+                if (note.CheckMiss(picTarget))
+                {
+                    score.Miss();
+                }
             }
+            else
+            {
+                note.Pause();
+            }
+            
         }
         if (index >= curSong.GetNumberOfSamples() - 1) {
             tmrPlay.Enabled = false;
@@ -94,20 +112,32 @@ internal partial class FrmMain : Form {
         
     }
 
+    /// <summary>
+    ///  USER INPUT KEY CONTROLS 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void FrmMain_KeyDown(object sender, KeyEventArgs e) {
         if (e.KeyCode == Keys.Space) {
             spacePressTime = DateTime.Now;
             isSpacebarHeld = false;
             picTarget.BackgroundImage = Resources.pressed;
         }
-        // Colin: Currently closes the form. Change this to pause the game.
+        // COLIN: Currently closes the form. Change this to pause the game.
         if (e.KeyCode == Keys.Escape)
         {
-            Game.GetInstance().CurSong.Stop();
             // hard to stop a foreach statement with another foreach statement....
             // Will revist this when sober 
-            foreach (var note in notes) { 
-                note.Pause();
+            if (!isPaused)
+            {
+                isPaused = true;
+                Game.GetInstance().CurSong.Stop();
+            }
+            else
+            {
+                isPaused = false;
+                Game.GetInstance().CurSong.Play();
+
             }
         }
     }
