@@ -1,4 +1,5 @@
-﻿using ScottPlot.Colormaps;
+﻿using HeroKeyboardGuitar.Properties;
+using ScottPlot.Colormaps;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,7 +33,14 @@ namespace HeroKeyboardGuitar {
             comboBox3.Text = "--Select a Song--";
         }
 
+        private void FrmSongSelect_KeyDown(object sender, KeyEventArgs e)
+        {
 
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
         private void FrmSongSelect_Load(object sender, EventArgs e)
         {
 

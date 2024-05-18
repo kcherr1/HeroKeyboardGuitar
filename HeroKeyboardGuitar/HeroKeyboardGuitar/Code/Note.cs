@@ -69,6 +69,13 @@ public class Note {
         xPos -= amount;
         Pic.Left = (int)xPos;
     }
+    
+
+    public void Pause()
+    {
+        xPos -= 0;
+
+    }
 
     /// <summary>
     /// Checks if the player has successfully hit this note. If so, the note will be marked as hit and

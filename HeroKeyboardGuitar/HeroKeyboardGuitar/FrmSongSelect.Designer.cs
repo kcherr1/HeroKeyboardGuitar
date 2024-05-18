@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSongSelect));
             pictureBox1 = new System.Windows.Forms.PictureBox();
             pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -166,6 +167,8 @@
             // 
             // FrmSongSelect
             // 
+            KeyDown += FrmSongSelect_KeyDown;
+
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Black;

@@ -80,7 +80,7 @@
             // 
             // FrmMain
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Black;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
