@@ -133,9 +133,29 @@ namespace HeroKeyboardGuitar.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Picture4 {
+            get {
+                object obj = ResourceManager.GetObject("Picture4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pop {
             get {
                 object obj = ResourceManager.GetObject("pop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pop___Copy {
+            get {
+                object obj = ResourceManager.GetObject("pop - Copy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

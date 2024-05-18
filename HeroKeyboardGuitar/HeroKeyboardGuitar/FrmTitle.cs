@@ -11,6 +11,7 @@ internal partial class FrmTitle : Form {
     private void btnStart_Click(object sender, EventArgs e) {
         FrmSongSelect frmSongSelect = new();
         frmSongSelect.Show();
+
     }
 
     private void FrmTitle_Load(object sender, EventArgs e) {
