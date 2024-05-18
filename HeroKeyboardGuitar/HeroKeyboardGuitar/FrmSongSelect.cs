@@ -84,6 +84,7 @@ namespace HeroKeyboardGuitar {
         {
             // Load highly saturated image
             pictureBox1.BackgroundImage = Properties.Resources.Picture2;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
             // Make the combobox visible 
             comboBox1.Visible = true;
 
@@ -108,6 +109,7 @@ namespace HeroKeyboardGuitar {
         {
             // Load highly saturated image
             pictureBox2.BackgroundImage = Properties.Resources.Picture3;
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
             // Make the combobox visible 
             comboBox2.Visible = true;
 
@@ -133,6 +135,7 @@ namespace HeroKeyboardGuitar {
         {
             // Load funny mario gif
             pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
             // Make the combobox visible
             comboBox3.Visible = true;
 
@@ -159,6 +162,7 @@ namespace HeroKeyboardGuitar {
         {
             // Image Color 
             pictureBox1.BackgroundImage = Properties.Resources.rnb___Copy;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
 
         }
 
@@ -166,14 +170,14 @@ namespace HeroKeyboardGuitar {
         {
             // Image MonoChrome 
             pictureBox1.BackgroundImage = Properties.Resources.Picture1;
-
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void pictureBox2_MouseEnter(object sender, EventArgs e)
         {
             // Image Color 
             pictureBox2.BackgroundImage = Properties.Resources.pop___Copy;
-
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
 
         }
 
@@ -181,7 +185,7 @@ namespace HeroKeyboardGuitar {
         {
             // Image MonoChrome
             pictureBox2.BackgroundImage = Properties.Resources.Picture4;
-
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void pictureBox3_MouseEnter(object sender, EventArgs e)
@@ -204,20 +208,21 @@ namespace HeroKeyboardGuitar {
         {
             // Image Saturation
             pictureBox1.BackgroundImage = Properties.Resources.Picture2;
-
+            pictureBox1.BackgroundImageLayout= ImageLayout.Stretch;
         }
 
         private void comboBox1_MouseHover(object sender, EventArgs e)
         {
             // Image Saturation (just in case)
             pictureBox1.BackgroundImage = Properties.Resources.Picture2;
-
+            pictureBox1 .BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox1_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome
             pictureBox1.BackgroundImage = Properties.Resources.Picture2;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
             // Remove ComboBox
             comboBox1.Visible = false;
 
@@ -227,14 +232,14 @@ namespace HeroKeyboardGuitar {
         {
             // Image Saturation
             pictureBox2.BackgroundImage = Properties.Resources.Picture3;
-
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;   
         }
 
         private void comboBox2_MouseEnter(object sender, EventArgs e)
         {
             // Image Saturation (Just in case)
             pictureBox2.BackgroundImage = Properties.Resources.Picture3;
-
+            pictureBox2 .BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox2_MouseLeave(object sender, EventArgs e)
@@ -243,20 +248,19 @@ namespace HeroKeyboardGuitar {
             pictureBox2.BackgroundImage = Properties.Resources.Picture3;
             // Remove ComboBox
             comboBox2.Visible = false;
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox3_MouseEnter(object sender, EventArgs e)
         {
             // Image Saturation
             pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
-
         }
 
         private void comboBox3_MouseHover(object sender, EventArgs e)
         {
             // Image Saturation
             pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
-
         }
 
         private void comboBox3_MouseLeave(object sender, EventArgs e)
