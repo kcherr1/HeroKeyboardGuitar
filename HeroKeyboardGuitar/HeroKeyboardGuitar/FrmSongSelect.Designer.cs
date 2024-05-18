@@ -31,6 +31,9 @@
             comboBox1 = new System.Windows.Forms.ComboBox();
             comboBox2 = new System.Windows.Forms.ComboBox();
             comboBox3 = new System.Windows.Forms.ComboBox();
+            button1 = new System.Windows.Forms.Button();
+            button2 = new System.Windows.Forms.Button();
+            button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -114,9 +117,52 @@
             comboBox3.Size = new System.Drawing.Size(121, 23);
             comboBox3.TabIndex = 6;
             comboBox3.Visible = false;
+            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             comboBox3.MouseEnter += comboBox3_MouseEnter;
             comboBox3.MouseLeave += comboBox3_MouseLeave;
             comboBox3.MouseHover += comboBox3_MouseHover;
+            // 
+            // button1
+            // 
+            button1.BackColor = System.Drawing.Color.MediumBlue;
+            button1.Font = new System.Drawing.Font("Showcard Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            button1.Location = new System.Drawing.Point(110, 492);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(181, 61);
+            button1.TabIndex = 7;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = false;
+            button1.Visible = false;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.BackColor = System.Drawing.Color.Blue;
+            button2.Font = new System.Drawing.Font("Showcard Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button2.ForeColor = System.Drawing.Color.White;
+            button2.Location = new System.Drawing.Point(424, 495);
+            button2.Name = "button2";
+            button2.Size = new System.Drawing.Size(181, 58);
+            button2.TabIndex = 8;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = false;
+            button2.Visible = false;
+            button2.Click += button2_Click;
+            // 
+            // button3
+            // 
+            button3.BackColor = System.Drawing.Color.Blue;
+            button3.Font = new System.Drawing.Font("Showcard Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button3.ForeColor = System.Drawing.Color.White;
+            button3.Location = new System.Drawing.Point(789, 493);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(181, 60);
+            button3.TabIndex = 9;
+            button3.Text = "button3";
+            button3.UseVisualStyleBackColor = false;
+            button3.Visible = false;
+            button3.Click += button3_Click;
             // 
             // FrmSongSelect
             // 
@@ -124,6 +170,9 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Black;
             ClientSize = new System.Drawing.Size(1060, 565);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(comboBox3);
             Controls.Add(comboBox2);
             Controls.Add(comboBox1);
@@ -147,5 +196,8 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }

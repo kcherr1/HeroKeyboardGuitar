@@ -15,14 +15,21 @@ namespace HeroKeyboardGuitar {
     internal partial class FrmSongSelect : Form
     {
         private readonly string SONGS_ROOT_PATH = $"{Application.StartupPath}../../../Songs/";
+        // COLIN: I might have to change the filepath to the images/songs to something similar to these Application Startup Lines
+        //private readonly string PICS_ROOT_PATH = $"{Application.StartupPath}../../../Resources/";
+        
+        
+        
+        // Dictionary that stores <filepath, genre> 
         Dictionary<string, HeroKeyboardGuitar.GenreType> songs = new Dictionary<string, HeroKeyboardGuitar.GenreType>();
 
         public FrmSongSelect()
         {
             InitializeComponent();
-            comboBox1.Text = "--Select--";
-            comboBox2.Text = "--Select--";
-            comboBox3.Text = "--Select--";
+            // Load default text for the comboboxes that are initially hidden
+            comboBox1.Text = "--Select a Song--";
+            comboBox2.Text = "--Select a Song--";
+            comboBox3.Text = "--Select a Song--";
         }
 
 
@@ -32,102 +39,145 @@ namespace HeroKeyboardGuitar {
             // Add music to combo boxes (AKA dropdown menus)
             foreach (var songFilePath in Directory.GetFiles(SONGS_ROOT_PATH))
             {
+                // Get filepath
                 var song = Path.GetFileNameWithoutExtension(songFilePath);
                 var songName = song.Split('_')[0];
+                var filePath = songFilePath;
+                // Get genre
                 GenreType genre;
+
+                // Country song from Dr.Cherry's original code? No idea how it works tbh
                 if (!Enum.TryParse(song.Split('_')[1], true, out genre))
                 {
                     genre = GenreType.COUNTRY;
                 }
 
-                var filePath = songFilePath;
+                // Add Rock and RNB to Picture 1 
                 if (genre == GenreType.ROCK || genre == GenreType.RNB)
                 {
                     comboBox1.Items.Add(genre);
 
                 }
+                // Add POP to Picture 2 
                 else if (genre == GenreType.POP)
                 {
                     comboBox2.Items.Add(genre);
                 }
+                // Add anything else to Picture 3 
                 else { comboBox3.Items.Add(genre); }
 
+                // Add <filepath,genre> to the dictionary called "songs" as a key:value pair 
                 songs.Add(filePath, genre);
             }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            // Load highly saturated image
             pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture2.jpg");
+            // Make the combobox visible 
             comboBox1.Visible = true;
+
+            // If other comboboxes are visible, make them invisible
             if (comboBox2.Visible || comboBox3.Visible)
             {
                 comboBox2.Visible = false;
                 comboBox3.Visible = false;
             }
+            // If other boxes are visible, make them invisible
+            if (button3.Visible || button2.Visible)
+            {
+                button3.Visible = false;
+                button2.Visible = false;
+            }
+            // Reset other comboboxes to default state
             comboBox2.SelectedIndex = -1;
             comboBox3.SelectedIndex = -1;
-            comboBox2.SelectedText = "--Select--";
-            comboBox3.SelectedText = "--Select--";
 
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            // Load highly saturated image
             pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture3.jpg");
+            // Make the combobox visible 
             comboBox2.Visible = true;
+
+            // If other comboboxes are visible, make them invisible
             if (comboBox1.Visible || comboBox3.Visible)
             {
                 comboBox1.Visible = false;
                 comboBox3.Visible = false;
             }
+            // If other boxes are visible, make them invisible
+            if (button1.Visible || button3.Visible)
+            {
+                button1.Visible = false;
+                button3.Visible = false;
+            }
+            // Reset other comboboxes to default state
             comboBox1.SelectedIndex = -1;
             comboBox3.SelectedIndex = -1;
-            comboBox1.SelectedText = "--Select--";
-            comboBox3.SelectedText = "--Select--";
 
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            // Load funny mario gif
             pictureBox3.Image = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\ezgif-1-453554342f.gif");
+            // Make the combobox visible
             comboBox3.Visible = true;
+
+            // If other comboboxes are visible, make them invisible
             if (comboBox1.Visible || comboBox2.Visible)
             {
                 comboBox1.Visible = false;
                 comboBox2.Visible = false;
             }
+            // If other boxes are visible, make them invisible
+            if (button1.Visible || button2.Visible)
+            {
+                button1.Visible = false;
+                button2.Visible = false;
+            }
+            // Reset other comboboxes to default state
             comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
-            comboBox1.SelectedText = "--Select--";
-            comboBox2.SelectedText = "--Select--";
 
 
         }
 
         private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
+            // Image Color 
             pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\rnb - Copy.jpeg");
+
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
+            // Image MonoChrome 
             pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture1.jpg");
 
         }
 
         private void pictureBox2_MouseEnter(object sender, EventArgs e)
         {
+            // Image Color 
             pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\pop - Copy.jpeg");
+
+        
         }
 
         private void pictureBox2_MouseLeave(object sender, EventArgs e)
         {
+            // Image MonoChrome
             pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture4.jpg");
 
         }
 
         private void pictureBox3_MouseEnter(object sender, EventArgs e)
         {
+            // Image Color
             pictureBox3.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\mario.jpg");
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
 
@@ -135,6 +185,7 @@ namespace HeroKeyboardGuitar {
 
         private void pictureBox3_MouseLeave(object sender, EventArgs e)
         {
+            // Image MonoChrome
             pictureBox3.Image = null;
             pictureBox3.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture6.jpg");
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
@@ -142,56 +193,68 @@ namespace HeroKeyboardGuitar {
 
         private void comboBox1_MouseEnter(object sender, EventArgs e)
         {
+            // Image Saturation
             pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture2.jpg");
 
         }
 
         private void comboBox1_MouseHover(object sender, EventArgs e)
         {
+            // Image Saturation (just in case)
             pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture2.jpg");
 
         }
 
         private void comboBox1_MouseLeave(object sender, EventArgs e)
         {
+            // Image MonoChrome
             pictureBox1.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture2.jpg");
+            // Remove ComboBox
             comboBox1.Visible = false;
 
         }
 
         private void comboBox2_MouseHover(object sender, EventArgs e)
         {
+            // Image Saturation
             pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture3.jpg");
 
         }
 
         private void comboBox2_MouseEnter(object sender, EventArgs e)
         {
+            // Image Saturation (Just in case)
             pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture3.jpg");
 
         }
 
         private void comboBox2_MouseLeave(object sender, EventArgs e)
         {
+            // Image MonoChrome
             pictureBox2.BackgroundImage = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\Picture3.jpg");
+            // Remove ComboBox
             comboBox2.Visible = false;
         }
 
         private void comboBox3_MouseEnter(object sender, EventArgs e)
         {
+            // Image Saturation
             pictureBox3.Image = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\ezgif-1-453554342f.gif");
 
         }
 
         private void comboBox3_MouseHover(object sender, EventArgs e)
         {
+            // Image Saturation
             pictureBox3.Image = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\ezgif-1-453554342f.gif");
 
         }
 
         private void comboBox3_MouseLeave(object sender, EventArgs e)
         {
+            // Image MonoChrome 
             pictureBox3.Image = Image.FromFile("C:\\Users\\Colin\\Documents\\GitHub\\Team1HeroKeyboardGuitar\\HeroKeyboardGuitar\\HeroKeyboardGuitar\\Resources\\ezgif-1-453554342f.gif");
+            // Remove ComboBox
             comboBox3.Visible = false;
 
 
@@ -199,74 +262,95 @@ namespace HeroKeyboardGuitar {
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Button btnSong = new()
+            // If ComboBox selection has happened...
+            if (comboBox1.SelectedIndex != -1)
             {
-                BackColor = Color.Cyan,
-                Width = 200,
-                Height = 50,
+                // If button1 is invisible, make it visible
+                if (!button1.Visible)
+                {
+                    button1.Visible = true;
+                    button1.Text = "START " + comboBox1.SelectedItem + "!!!";
+                }
 
-                Text = "Start " + comboBox1.SelectedItem + "!!!",
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Arial", 20),
-                ForeColor = Color.White,
-                Location = new Point(454, 494)
-            };
-            btnSong.Click += (e, sender) =>
-            {
-                ;
-                Game.SetCurSong(songs.FirstOrDefault(x => x.Value == (HeroKeyboardGuitar.GenreType)comboBox1.SelectedItem).Key, (HeroKeyboardGuitar.GenreType)comboBox1.SelectedItem);
-                FrmMain frmMain = new();
-                frmMain.Show();
-            };
-            if (comboBox1.SelectedText == "--Select--")
-            {
-                Controls.Remove(btnSong);
+                // If other buttons are visible, make them invisible 
+                if (button2.Visible || button3.Visible)
+                {
+                    button2.Visible = false;
+                    button3.Visible = false;
+                }
             }
-            else
-            {
-                Controls.Add(btnSong);
 
-            }
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*
-            var matches = this.Controls.Find("btnSong", true);
-            if (matches != null)
-            {
-                Controls.Remove(btnSong);
-            }
-            */
+            // If ComboBox selection has happened...
+            if (comboBox2.SelectedIndex != -1)
+            {   
+                // If button2 is invisible, make it visble 
+                if (!button2.Visible)
+                {
+                    button2.Visible = true;
+                    button2.Text = "START " + comboBox2.SelectedItem + "!!!";
 
-            Button btnSong = new()
-            {
-                BackColor = Color.Cyan,
-                Width = 200,
-                Height = 50,
-
-                Text = "Start " + comboBox2.SelectedItem + "!!!",
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Arial", 20),
-                ForeColor = Color.White,
-                Location = new Point(454, 494)
-            };
-            btnSong.Click += (e, sender) =>
-            {
-                ;
-                Game.SetCurSong(songs.FirstOrDefault(x => x.Value == (HeroKeyboardGuitar.GenreType)comboBox2.SelectedItem).Key, (HeroKeyboardGuitar.GenreType)comboBox2.SelectedItem);
-                FrmMain frmMain = new();
-                frmMain.Show();
-            };
-            if (comboBox2.SelectedText == "--Select--")
-            {
-                Controls.Remove(btnSong);
+                }
+                // If other buttons are visible, make them invisble 
+                if (button1.Visible || button3.Visible)
+                {
+                    button1.Visible = false;
+                    button3.Visible = false;
+                }
             }
-            else
-            {
-                Controls.Add(btnSong);
 
-            }
         }
+
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // If ComboBox selection has already happened...
+            if (comboBox3.SelectedIndex != -1)
+            {
+                // If button3 is invisible, make it visbile
+                if (!button3.Visible)
+                {
+                    button3.Visible = true;
+                    button3.Text = "START " + comboBox3.SelectedItem + "!!!";
+
+                }
+                // If other buttons are visible, make them invisible
+                if (button1.Visible || button2.Visible)
+                {
+                    button1.Visible = false;
+                    button2.Visible = false;
+                }
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Launch FrmMain.cs for song selected in ComboBox1
+            Game.SetCurSong(songs.FirstOrDefault(x => x.Value == (HeroKeyboardGuitar.GenreType)comboBox1.SelectedItem).Key, (HeroKeyboardGuitar.GenreType)comboBox1.SelectedItem);
+            FrmMain frmMain = new();
+            frmMain.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // Launch FrmMain.cs from song selected in ComboBox2
+            Game.SetCurSong(songs.FirstOrDefault(x => x.Value == (HeroKeyboardGuitar.GenreType)comboBox2.SelectedItem).Key, (HeroKeyboardGuitar.GenreType)comboBox2.SelectedItem);
+            FrmMain frmMain = new();
+            frmMain.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // Launch FrmMain.cs from song selected in ComboBox3
+            Game.SetCurSong(songs.FirstOrDefault(x => x.Value == (HeroKeyboardGuitar.GenreType)comboBox3.SelectedItem).Key, (HeroKeyboardGuitar.GenreType)comboBox3.SelectedItem);
+            FrmMain frmMain = new();
+            frmMain.Show();
+        }
+
+        
     }
 }
