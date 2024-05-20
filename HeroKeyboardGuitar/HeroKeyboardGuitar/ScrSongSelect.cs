@@ -4,13 +4,14 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
-namespace HeroKeyboardGuitar {
-    internal partial class FrmSongSelect : UserControl
+namespace HeroKeyboardGuitar
+{
+    internal partial class ScrSongSelect : UserControl
     {
         public ScreenSwapHandler handler;
         private readonly string SONGS_ROOT_PATH = $"{Application.StartupPath}../../../Songs/";
 
-        public FrmSongSelect()
+        public ScrSongSelect()
         {
             InitializeComponent();
         }
@@ -21,12 +22,13 @@ namespace HeroKeyboardGuitar {
             int left = 125;
             const int size = 300;
             const int spacing = 50;
-            foreach (var songFilePath in Directory.GetFiles(SONGS_ROOT_PATH))
+            foreach (var songFolderPath in Directory.GetDirectories(SONGS_ROOT_PATH))
             {
-                var song = Path.GetFileNameWithoutExtension(songFilePath);
-                var songName = song.Split('_')[0];
+                string directoryName = Path.GetFileNameWithoutExtension(songFolderPath);
+                var songName = directoryName.Split('_')[0];
+                var songFilePath = Path.Combine(songFolderPath, "audio.wav");
                 GenreType genre;
-                if (!Enum.TryParse(song.Split('_')[1], true, out genre))
+                if (!Enum.TryParse(directoryName.Split('_')[1], true, out genre))
                 {
                     genre = GenreType.COUNTRY;
                 }
@@ -44,17 +46,15 @@ namespace HeroKeyboardGuitar {
                     Left = left,
                 };
                 left += size + spacing;
-                var filePath = songFilePath;
                 btnSong.Click += (e, sender) =>
                 {
-                    Game.SetCurSong(filePath, genre);
-                    FrmMain frmMain = new();
+                    Game.SetCurSong(songFilePath, genre);
+                    FrmGame frmMain = new();
                     frmMain.Show();
                 };
                 Controls.Add(btnSong);
             }
         }
-
         private void btn_BackClick(object sender, EventArgs e)
         {
             handler.gotoTitle();

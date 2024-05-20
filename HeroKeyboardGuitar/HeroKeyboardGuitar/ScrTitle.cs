@@ -3,17 +3,17 @@ using System.Windows.Forms;
 
 namespace HeroKeyboardGuitar;
 
-internal partial class FrmTitle : UserControl
+internal partial class ScrTitle : UserControl
 {
     public ScreenSwapHandler handler;
-    public FrmTitle()
+    public ScrTitle()
     {
         InitializeComponent();
     }
 
     private void btnStart_Click(object sender, EventArgs e)
     {
-        FrmSongSelect frmSongSelect = new();
+        ScrSongSelect frmSongSelect = new();
         frmSongSelect.Show();
     }
 

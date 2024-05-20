@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace HeroKeyboardGuitar;
 
-internal partial class FrmMain : Form {
+internal partial class FrmGame : Form {
     private List<Note> notes;
     private const float noteSpeed = 0.5f;
     private Audio curSong;
@@ -23,7 +23,7 @@ internal partial class FrmMain : Form {
         }
     }
 
-    public FrmMain() {
+    public FrmGame() {
         InitializeComponent();
     }
 

@@ -1,5 +1,5 @@
 ﻿namespace HeroKeyboardGuitar {
-    partial class FrmMain {
+    partial class FrmGame {
         /// <summary>
         ///  Required designer variable.
         /// </summary>

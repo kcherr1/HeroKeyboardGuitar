@@ -1,5 +1,5 @@
 ﻿namespace HeroKeyboardGuitar {
-    partial class FrmSongSelect {
+    partial class ScrSongSelect {
         /// <summary>
         /// Required designer variable.
         /// </summary>

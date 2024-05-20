@@ -10,23 +10,23 @@ using System.Windows.Forms;
 
 namespace HeroKeyboardGuitar
 {
-    public partial class Hub : Form
+    public partial class FrmHub : Form
     {
 
         private ScreenSwapHandler handler = new();
         private UserControl current_scr;
-        private FrmTitle title_scr;
-        private FrmSongSelect songSelect_scr;
+        private ScrTitle title_scr;
+        private ScrSongSelect songSelect_scr;
         private ScrManager_Hub songManage_hub_scr;
         /*
         private ScrSongManage songManage_scr;
         private ScrSettings settings_scr;
         */
 
-        public Hub()
+        public FrmHub()
         {
-            title_scr = new FrmTitle();
-            songSelect_scr = new FrmSongSelect();
+            title_scr = new ScrTitle();
+            songSelect_scr = new ScrSongSelect();
             songManage_hub_scr = new ScrManager_Hub();
             InitializeComponent();
         }

@@ -13,7 +13,7 @@ internal partial class ScrManager_Hub : UserControl
 
     private void btnStart_Click(object sender, EventArgs e)
     {
-        FrmSongSelect frmSongSelect = new();
+        ScrSongSelect frmSongSelect = new();
         frmSongSelect.Show();
     }
 

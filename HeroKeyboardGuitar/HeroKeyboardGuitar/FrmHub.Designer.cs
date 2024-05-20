@@ -1,6 +1,6 @@
 ﻿namespace HeroKeyboardGuitar
 {
-    partial class Hub
+    partial class FrmHub
     {
         /// <summary>
         /// Required designer variable.
