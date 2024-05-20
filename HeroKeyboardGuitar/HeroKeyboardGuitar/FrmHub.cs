@@ -17,12 +17,14 @@ namespace HeroKeyboardGuitar
         private ScrTitle title_scr;
         private ScrSongSelect songSelect_scr;
         private ScrManager_Hub songManage_hub_scr;
+        private ScrManager_Add songManage_add_scr;
 
         public FrmHub()
         {
             title_scr = new ScrTitle();
             songSelect_scr = new ScrSongSelect();
             songManage_hub_scr = new ScrManager_Hub();
+            songManage_add_scr = new ScrManager_Add();
             InitializeComponent();
         }
 
@@ -53,6 +55,7 @@ namespace HeroKeyboardGuitar
             setupFill(title_scr);
             setupFill(songSelect_scr);
             setupFill(songManage_hub_scr);
+            setupFill(songManage_add_scr);
         }
 
 
@@ -66,6 +69,7 @@ namespace HeroKeyboardGuitar
             this.Controls.Add(title_scr);
             this.Controls.Add(songSelect_scr);
             this.Controls.Add(songManage_hub_scr);
+            this.Controls.Add(songManage_add_scr);
         }
 
         /// <summary>
@@ -77,6 +81,7 @@ namespace HeroKeyboardGuitar
             title_scr.handler = this.handler;
             songSelect_scr.handler = this.handler;
             songManage_hub_scr.handler = this.handler;
+            songManage_add_scr.handler = this.handler;
         }
 
         /// <summary>
@@ -88,6 +93,11 @@ namespace HeroKeyboardGuitar
             handler.Title += () => swapScreen(title_scr);
             handler.SongSelect += () => swapScreen(songSelect_scr);
             handler.SongManage_hub += () => swapScreen(songManage_hub_scr);
+            handler.SongManage_add += () => swapScreen(songManage_add_scr);
+            handler.update_SongManage_options += () => updateManagerScreens();
+            //handler.SongManage_delete += () => swapScreen(songManage_delete_scr);
+            handler.Quit += () => Application.Exit();
+
         }
 
         /// <summary>
@@ -104,7 +114,22 @@ namespace HeroKeyboardGuitar
 
         }
 
+        private void updateManagerScreens()
+        {
+            UserControl oldScreen = songManage_add_scr;
+            songManage_add_scr = new ScrManager_Add();
+            setupFill(songManage_add_scr);
+            songManage_add_scr.handler = this.handler;
+            this.Controls.Add(songManage_add_scr);
+            handler.SongManage_add += () => swapScreen(songManage_add_scr);
+            songManage_add_scr.Hide();
+            oldScreen.Dispose();
+            this.Controls.Remove(oldScreen);
+
+            // this.Controls.Remove(songManage_delete_scr);
+
+        }
+
     }
 
 }
-

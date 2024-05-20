@@ -42,6 +42,6 @@ internal partial class ScrTitle : UserControl
 
     private void btn_quitClicked(object sender, EventArgs e)
     {
-           
+        handler.goToQuit();     
     }
 }
