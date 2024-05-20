@@ -103,5 +103,5 @@ namespace HeroKeyboardGuitar
         private System.Windows.Forms.Button btn_delete;
     private System.Windows.Forms.Button btn_back;
     private System.Windows.Forms.Button btn_Add;
-}
+    }
 }
