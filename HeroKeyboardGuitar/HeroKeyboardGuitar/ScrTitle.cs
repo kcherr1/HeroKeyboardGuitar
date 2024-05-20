@@ -32,7 +32,7 @@ internal partial class ScrTitle : UserControl
 
     private void btn_songManageClicked(object sender, EventArgs e)
     {
-        handler.gotoSongManage();
+        handler.gotoSongManage_hub();
     }
 
     private void btn_settingsClicked(object sender, EventArgs e)

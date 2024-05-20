@@ -11,18 +11,18 @@ namespace HeroKeyboardGuitar
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-    /// <summary>
-    /// Clean up any resources being used.
-    /// </summary>
-    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing && (components != null))
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            components.Dispose();
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
-        base.Dispose(disposing);
-    }
 
         #region Windows Form Designer generated code
 
@@ -40,11 +40,11 @@ namespace HeroKeyboardGuitar
             // btn_delete
             // 
             btn_delete.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btn_delete.BackColor = Color.Red;
+            btn_delete.BackColor = Color.DarkOrange;
             btn_delete.FlatStyle = FlatStyle.Popup;
             btn_delete.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
             btn_delete.ForeColor = Color.Black;
-            btn_delete.Location = new Point(502, 468);
+            btn_delete.Location = new Point(502, 392);
             btn_delete.Margin = new Padding(3, 4, 3, 4);
             btn_delete.Name = "btn_delete";
             btn_delete.Size = new Size(492, 120);
@@ -55,15 +55,14 @@ namespace HeroKeyboardGuitar
             // 
             // btn_back
             // 
-            btn_back.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btn_back.BackColor = Color.FromArgb(192, 255, 255);
+            btn_back.BackColor = Color.Red;
             btn_back.FlatStyle = FlatStyle.Popup;
             btn_back.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
             btn_back.ForeColor = Color.Black;
-            btn_back.Location = new Point(502, 684);
+            btn_back.Location = new Point(-11, 4);
             btn_back.Margin = new Padding(3, 4, 3, 4);
             btn_back.Name = "btn_back";
-            btn_back.Size = new Size(492, 120);
+            btn_back.Size = new Size(326, 120);
             btn_back.TabIndex = 2;
             btn_back.Text = "Back";
             btn_back.UseVisualStyleBackColor = false;
@@ -76,7 +75,7 @@ namespace HeroKeyboardGuitar
             btn_Add.FlatStyle = FlatStyle.Popup;
             btn_Add.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
             btn_Add.ForeColor = Color.Black;
-            btn_Add.Location = new Point(502, 252);
+            btn_Add.Location = new Point(502, 166);
             btn_Add.Margin = new Padding(3, 4, 3, 4);
             btn_Add.Name = "btn_Add";
             btn_Add.Size = new Size(492, 120);
@@ -101,7 +100,7 @@ namespace HeroKeyboardGuitar
 
         #endregion
         private System.Windows.Forms.Button btn_delete;
-    private System.Windows.Forms.Button btn_back;
-    private System.Windows.Forms.Button btn_Add;
+        private System.Windows.Forms.Button btn_back;
+        private System.Windows.Forms.Button btn_Add;
     }
 }

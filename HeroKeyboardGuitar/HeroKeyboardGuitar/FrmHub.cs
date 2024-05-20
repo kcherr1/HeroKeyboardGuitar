@@ -12,16 +12,11 @@ namespace HeroKeyboardGuitar
 {
     public partial class FrmHub : Form
     {
-
         private ScreenSwapHandler handler = new();
         private UserControl current_scr;
         private ScrTitle title_scr;
         private ScrSongSelect songSelect_scr;
         private ScrManager_Hub songManage_hub_scr;
-        /*
-        private ScrSongManage songManage_scr;
-        private ScrSettings settings_scr;
-        */
 
         public FrmHub()
         {
@@ -92,7 +87,7 @@ namespace HeroKeyboardGuitar
         {
             handler.Title += () => swapScreen(title_scr);
             handler.SongSelect += () => swapScreen(songSelect_scr);
-            handler.SongManage += () => swapScreen(songManage_hub_scr);
+            handler.SongManage_hub += () => swapScreen(songManage_hub_scr);
         }
 
         /// <summary>
@@ -108,6 +103,8 @@ namespace HeroKeyboardGuitar
             current_scr.Show();
 
         }
+
     }
 
 }
+

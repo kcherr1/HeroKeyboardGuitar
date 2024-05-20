@@ -32,12 +32,12 @@ internal partial class ScrManager_Hub : UserControl
 
     private void btn_addClicked(object sender, EventArgs e)
     {
-
+        handler.gotoSongManage_add();
     }
 
     private void btn_deleteClicked(object sender, EventArgs e)
     {
-
+        handler.gotoSongManage_delete();
     }
 
     private void btn_backClicked(object sender, EventArgs e)
