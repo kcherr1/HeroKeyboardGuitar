@@ -36,24 +36,6 @@ internal partial class FrmGame : Form {
         notes = new();
         foreach (var actionTime in curSong.ActionTimes) {
             double x = actionTime * noteSpeed + picTarget.Left + picTarget.Width;
-            /*
-            const int noteSize = 50;
-            if (notes.Any(note => (x - note.Pic.Left) < noteSize / 2)) {
-                continue;
-            }
-            PictureBox picNote = new() {
-                BackColor = Color.Black,
-                ForeColor = Color.Black,
-                Width = noteSize,
-                Height = noteSize,
-                Top = picTarget.Top + picTarget.Height / 2 - noteSize / 2,
-                Left = (int)x,
-                BackgroundImage = Resources.marker,
-                BackgroundImageLayout = ImageLayout.Stretch,
-                Anchor = AnchorStyles.Bottom,
-            };
-            Controls.Add(picNote);
-            */
             notes.Add(new Note(x));
         }
         Timer tmrWaitThenPlay = new() {
@@ -84,25 +66,31 @@ internal partial class FrmGame : Form {
             tmrPlay.Enabled = false;
             foreach (var note in notes) {
                 Controls.Remove(note.Pic);
-                //note.Dispose();
+                note.Dispose();
             }
         }
     }
 
     private void FrmMain_KeyPress(object sender, KeyPressEventArgs e) {
-        foreach (var note in notes) {
-            if (note.CheckHit(picTarget)) 
+        {
+            foreach (var note in notes)
             {
-                score.Add(1);
-                lblScore.Text = score.Amount.ToString();
-                lblScore.Font = new("Arial", 42);
-                break;
-            }
+                if (note.CheckHit(picTarget))
+                {
+                    score.Add(1);
+                    lblScore.Text = score.Amount.ToString();
+                    lblScore.Font = new Font("Arial", 42);
+                    break;
+                    }
+                }
         }
     }
 
     private void FrmMain_KeyDown(object sender, KeyEventArgs e) {
-        picTarget.BackgroundImage = Resources.pressed;
+        if (e.KeyCode == Keys.D)
+        {
+            picTarget.BackgroundImage = Resources.pressed;
+        }
     }
 
     private void FrmMain_KeyUp(object sender, KeyEventArgs e) {

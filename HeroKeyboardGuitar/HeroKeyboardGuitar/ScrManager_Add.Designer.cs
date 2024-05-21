@@ -37,8 +37,6 @@ namespace HeroKeyboardGuitar
             btn_SelectSongFile = new Button();
             btn_SelectGenre = new Button();
             btn_createSong = new Button();
-            pictureBox3 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // btn_selectMap
@@ -46,14 +44,14 @@ namespace HeroKeyboardGuitar
             btn_selectMap.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btn_selectMap.BackColor = Color.Aquamarine;
             btn_selectMap.FlatStyle = FlatStyle.Popup;
-            btn_selectMap.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_selectMap.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
             btn_selectMap.ForeColor = Color.Black;
             btn_selectMap.Location = new Point(479, 509);
             btn_selectMap.Margin = new Padding(3, 4, 3, 4);
             btn_selectMap.Name = "btn_selectMap";
             btn_selectMap.Size = new Size(554, 120);
             btn_selectMap.TabIndex = 1;
-            btn_selectMap.Text = "Select beat map (txt)";
+            btn_selectMap.Text = "Select beat map\n(Must be a .txt file exported from Audacity's Beat Finder)";
             btn_selectMap.UseVisualStyleBackColor = false;
             btn_selectMap.Click += btn_SelectMapClicked;
             // 
@@ -77,14 +75,14 @@ namespace HeroKeyboardGuitar
             btn_SelectSongFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btn_SelectSongFile.BackColor = Color.Aquamarine;
             btn_SelectSongFile.FlatStyle = FlatStyle.Popup;
-            btn_SelectSongFile.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_SelectSongFile.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
             btn_SelectSongFile.ForeColor = Color.Black;
             btn_SelectSongFile.Location = new Point(479, 161);
             btn_SelectSongFile.Margin = new Padding(3, 4, 3, 4);
             btn_SelectSongFile.Name = "btn_SelectSongFile";
             btn_SelectSongFile.Size = new Size(554, 120);
             btn_SelectSongFile.TabIndex = 5;
-            btn_SelectSongFile.Text = "Select Song File (wav)";
+            btn_SelectSongFile.Text = "Select Song File\n(Must be .wav file)";
             btn_SelectSongFile.UseVisualStyleBackColor = false;
             btn_SelectSongFile.Click += btn_SelectSongFileClicked;
             // 
@@ -93,14 +91,14 @@ namespace HeroKeyboardGuitar
             btn_SelectGenre.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btn_SelectGenre.BackColor = Color.Aquamarine;
             btn_SelectGenre.FlatStyle = FlatStyle.Popup;
-            btn_SelectGenre.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
+            btn_SelectGenre.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
             btn_SelectGenre.ForeColor = Color.Black;
             btn_SelectGenre.Location = new Point(479, 330);
             btn_SelectGenre.Margin = new Padding(3, 4, 3, 4);
             btn_SelectGenre.Name = "btn_SelectGenre";
             btn_SelectGenre.Size = new Size(554, 120);
             btn_SelectGenre.TabIndex = 5;
-            btn_SelectGenre.Text = "Select Genre (click to cycle)";
+            btn_SelectGenre.Text = "Select Genre (click to cycle and stay on one)";
             btn_SelectGenre.UseVisualStyleBackColor = false;
             btn_SelectGenre.Click += btn_SelectGenreClicked;
             // 
@@ -120,25 +118,12 @@ namespace HeroKeyboardGuitar
             btn_createSong.UseVisualStyleBackColor = false;
             btn_createSong.Click += btn_CreateSongClicked;
             // 
-            // pictureBox3
-            // 
-            pictureBox3.Anchor = AnchorStyles.None;
-            pictureBox3.BackColor = Color.Transparent;
-            pictureBox3.Image = Properties.Resources.x_mark;
-            pictureBox3.Location = new Point(308, 509);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(132, 120);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 10;
-            pictureBox3.TabStop = false;
-            // 
             // ScrManager_Add
             // 
             BackgroundImage = Properties.Resources.song_manager;
             BackgroundImageLayout = ImageLayout.Stretch;
             Controls.Add(btn_selectMap);
             Controls.Add(btn_SelectSongFile);
-            Controls.Add(pictureBox3);
             Controls.Add(btn_createSong);
             Controls.Add(btn_SelectGenre);
             Controls.Add(btn_back);
@@ -146,7 +131,6 @@ namespace HeroKeyboardGuitar
             Name = "ScrManager_Add";
             Size = new Size(1405, 885);
             Load += ScrManager_Add_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
         }
 
@@ -156,6 +140,5 @@ namespace HeroKeyboardGuitar
         private System.Windows.Forms.Button btn_SelectSongFile;
         private Button btn_SelectGenre;
         private Button btn_createSong;
-        private PictureBox pictureBox3;
     }
 }

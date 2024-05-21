@@ -43,7 +43,6 @@ public class Note {
     /// <summary>
     /// Ctor. Sets state to traveling
     /// </summary>
-    /// <param name="pic">PictureBox for visual representation</param>
     /// <param name="xPos">Starting x position</param>
     public Note(double xPos) {
         State = NoteState.TRAVELING;

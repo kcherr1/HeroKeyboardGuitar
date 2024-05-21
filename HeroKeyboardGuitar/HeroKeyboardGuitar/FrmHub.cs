@@ -16,14 +16,12 @@ namespace HeroKeyboardGuitar
         private UserControl current_scr;
         private ScrTitle title_scr;
         private ScrSongSelect songSelect_scr;
-        private ScrManager_Hub songManage_hub_scr;
         private ScrManager_Add songManage_add_scr;
 
         public FrmHub()
         {
             title_scr = new ScrTitle();
             songSelect_scr = new ScrSongSelect();
-            songManage_hub_scr = new ScrManager_Hub();
             songManage_add_scr = new ScrManager_Add();
             InitializeComponent();
         }
@@ -39,22 +37,21 @@ namespace HeroKeyboardGuitar
             // makes all the screens use the same handlers as the form
             assignHandlerToAllScreens();
             // hides screens that won't be in use for now
-            hideAllScreens();
-            // assigns the current display as the starting screen
+            hideAllScreensExceptTitle();
+            // assigns the current display to the title screen
             current_scr = title_scr;
         }
 
-        private void hideAllScreens()
+        private void hideAllScreensExceptTitle()
         {
             songSelect_scr.Hide();
-            songManage_hub_scr.Hide();
+            songManage_add_scr.Hide();
         }
 
         private void setupFillAll()
         {
             setupFill(title_scr);
             setupFill(songSelect_scr);
-            setupFill(songManage_hub_scr);
             setupFill(songManage_add_scr);
         }
 
@@ -68,7 +65,6 @@ namespace HeroKeyboardGuitar
         {
             this.Controls.Add(title_scr);
             this.Controls.Add(songSelect_scr);
-            this.Controls.Add(songManage_hub_scr);
             this.Controls.Add(songManage_add_scr);
         }
 
@@ -80,7 +76,6 @@ namespace HeroKeyboardGuitar
         {
             title_scr.handler = this.handler;
             songSelect_scr.handler = this.handler;
-            songManage_hub_scr.handler = this.handler;
             songManage_add_scr.handler = this.handler;
         }
 
@@ -92,10 +87,8 @@ namespace HeroKeyboardGuitar
         {
             handler.Title += () => swapScreen(title_scr);
             handler.SongSelect += () => swapScreen(songSelect_scr);
-            handler.SongManage_hub += () => swapScreen(songManage_hub_scr);
             handler.SongManage_add += () => swapScreen(songManage_add_scr);
             handler.update_SongManage_options += () => updateManagerScreens();
-            //handler.SongManage_delete += () => swapScreen(songManage_delete_scr);
             handler.Quit += () => Application.Exit();
 
         }
@@ -114,6 +107,7 @@ namespace HeroKeyboardGuitar
 
         }
 
+        // need to refactor this later so that way its generalized. Need to be able to update song select too
         private void updateManagerScreens()
         {
             UserControl oldScreen = songManage_add_scr;
@@ -125,9 +119,6 @@ namespace HeroKeyboardGuitar
             songManage_add_scr.Hide();
             oldScreen.Dispose();
             this.Controls.Remove(oldScreen);
-
-            // this.Controls.Remove(songManage_delete_scr);
-
         }
 
     }
