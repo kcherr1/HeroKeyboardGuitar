@@ -2,12 +2,16 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Text.Json;
+using ScottPlot;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace HeroKeyboardGuitar;
 
 internal partial class ScrManager_Add : UserControl{
 
-    private const int MAX_SONG_AMOUNT = 5;
+    private const int MAX_SONG_AMOUNT = 10;
     private string SONGS_ROOT_PATH = $"{Application.StartupPath}../../../Songs/";
     private GenreType[] genreArray;
     private int currentGenreIndex;
@@ -66,8 +70,8 @@ internal partial class ScrManager_Add : UserControl{
     {
         if (isPathFull(SONGS_ROOT_PATH))
         {
-            MessageBox.Show(@"Too many songs in the folder. Maximum amount is 5. Try deleting a song folder 
-                               from the Delete button in Manage Songs and then come back.",
+            MessageBox.Show(@"Too many songs in the folder. Maximum amount is 5. Try deleting a song folder" + 
+                           "from the Delete button in Manage Songs and then come back.",
                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
@@ -84,11 +88,12 @@ internal partial class ScrManager_Add : UserControl{
                     string songName = Path.GetFileNameWithoutExtension(audioPath);
                     string folderName = $"{songName}_{songGenre.ToLower()}";
                     string newFolderPath = Path.Combine(SONGS_ROOT_PATH, folderName);
+                MessageBox.Show(newFolderPath);
                     System.IO.Directory.CreateDirectory(newFolderPath);
                     string songCopiedFile = Path.Combine(newFolderPath, "audio.wav");
-                    string beatCopiedFile = Path.Combine(newFolderPath, "beat.txt");
+                    createJSON_mapFromText(beatPath, newFolderPath);
+                    //string beatCopiedFile = Path.Combine(newFolderPath, "beat.txt");
                     File.Copy(audioPath, songCopiedFile, true);
-                    File.Copy(beatPath, beatCopiedFile, true);
                     MessageBox.Show("Song Succesfully Added!");
                 }
 
@@ -109,7 +114,7 @@ internal partial class ScrManager_Add : UserControl{
                         message += $"{pair.Key} is not the right file type.\n";
                     }
                 }
-                message += "Refer to the parantheses section for the button(s)";
+                message += "Refer to the bottom (parantheses section) for the accepted file type(s)";
                 MessageBox.Show(message);
             }
     }
@@ -125,7 +130,36 @@ internal partial class ScrManager_Add : UserControl{
             button.Text = $"{Path.GetFileName(field)}\nClick to change {extension} file.";
         }
     }
-    
+
+    private void createJSON_mapFromText(string textFile, string path)
+    {
+        List<Double> beatTimeList = new();
+        string[] lines = File.ReadAllLines(textFile);
+        string fullFilePath = Path.Combine(path, "beat.json");        
+        MessageBox.Show(fullFilePath);
+        using (File.Create(fullFilePath));
+        foreach (string line in lines)
+        {
+            string[] parts = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            string startTime = parts[0];
+            try
+            {
+                beatTimeList.Add(Double.Parse(startTime) * 1000);
+            }
+            catch
+            {
+                MessageBox.Show("The file selected is not in the appropiate format. Are you sure it's exported from Audacity?");
+            }
+        }
+        /*
+        Dictionary<String, List<Double>> actionTimes = new()
+        {
+            { "Action Times", beatTimeList }
+        };
+        */
+        string jsonString = JsonSerializer.Serialize(beatTimeList);
+        File.WriteAllText(fullFilePath, jsonString);
+    }
 
     private bool isPathFull(string path)
     {

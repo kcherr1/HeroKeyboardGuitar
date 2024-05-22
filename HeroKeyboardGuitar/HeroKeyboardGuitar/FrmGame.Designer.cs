@@ -22,13 +22,15 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             components = new System.ComponentModel.Container();
             tmrPlay = new System.Windows.Forms.Timer(components);
             picTarget = new System.Windows.Forms.PictureBox();
             lblScore = new System.Windows.Forms.Label();
             tmrScoreShrink = new System.Windows.Forms.Timer(components);
             panBg = new System.Windows.Forms.Panel();
+            panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)picTarget).BeginInit();
             panBg.SuspendLayout();
             SuspendLayout();
@@ -77,17 +79,28 @@
             panBg.Size = new System.Drawing.Size(1237, 480);
             panBg.TabIndex = 6;
             // 
-            // FrmMain
+            // panel1
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            panel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            panel1.BackColor = System.Drawing.Color.Gray;
+            panel1.Location = new System.Drawing.Point(0, 498);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(1237, 179);
+            panel1.TabIndex = 7;
+            panel1.Paint += panel1_Paint;
+            // 
+            // FrmGame
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Black;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             ClientSize = new System.Drawing.Size(1237, 644);
             Controls.Add(panBg);
             Controls.Add(picTarget);
+            Controls.Add(panel1);
             Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            Name = "FrmMain";
+            Name = "FrmGame";
             Text = "Play Song";
             WindowState = System.Windows.Forms.FormWindowState.Maximized;
             FormClosing += FrmMain_FormClosing;
@@ -106,5 +119,6 @@
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Timer tmrScoreShrink;
         private System.Windows.Forms.Panel panBg;
+        private System.Windows.Forms.Panel panel1;
     }
 }

@@ -24,11 +24,10 @@ namespace HeroKeyboardGuitar
             const int spacing = 50;
             foreach (var songFolderPath in Directory.GetDirectories(SONGS_ROOT_PATH))
             {
-                string directoryName = Path.GetFileNameWithoutExtension(songFolderPath);
-                var songName = directoryName.Split('_')[0];
-                var songFilePath = Path.Combine(songFolderPath, "audio.wav");
+                string songDirectoryName = Path.GetFileNameWithoutExtension(songFolderPath);
+                var songName = songDirectoryName.Split('_')[0];
                 GenreType genre;
-                if (!Enum.TryParse(directoryName.Split('_')[1], true, out genre))
+                if (!Enum.TryParse(songDirectoryName.Split('_')[1], true, out genre))
                 {
                     genre = GenreType.COUNTRY;
                 }
@@ -48,7 +47,7 @@ namespace HeroKeyboardGuitar
                 left += size + spacing;
                 btnSong.Click += (e, sender) =>
                 {
-                    Game.SetCurSong(songFilePath, genre);
+                    Game.SetCurSong(songFolderPath, genre);
                     FrmGame frmMain = new();
                     frmMain.Show();
                 };
