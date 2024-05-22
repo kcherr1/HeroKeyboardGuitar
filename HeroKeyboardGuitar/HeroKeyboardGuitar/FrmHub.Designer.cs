@@ -1,5 +1,7 @@
-﻿namespace HeroKeyboardGuitar {
-    partial class FrmSongSelect {
+﻿namespace HeroKeyboardGuitar
+{
+    partial class FrmHub
+    {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -9,8 +11,10 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -22,22 +26,27 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             SuspendLayout();
             // 
-            // FrmSongSelect
+            // Hub
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.Black;
-            ClientSize = new System.Drawing.Size(1060, 565);
-            Name = "FrmSongSelect";
-            Text = "Select Song";
+            BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            ClientSize = new System.Drawing.Size(1405, 885);
+            DoubleBuffered = true;
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Name = "Hub";
+            Text = "Hero Keyboard Guitar";
+            Load += Scr_Load;
             WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            Load += FrmSongSelect_Load;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnStart;
     }
 }
