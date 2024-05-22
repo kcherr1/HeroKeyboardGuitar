@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AudioAnalyzing;
+using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -21,6 +22,9 @@ internal partial class ScrManager_Add : UserControl{
     private string beatPath;
 
 
+    /// <summary>
+    /// creates the genre array and starts the button in the condition that it hasnt been pressed yet
+    /// </summary>
     public ScrManager_Add()
     {
         genreArray = (GenreType[])Enum.GetValues(typeof(GenreType));
@@ -28,6 +32,11 @@ internal partial class ScrManager_Add : UserControl{
         InitializeComponent();
     }
 
+    /// <summary>
+    /// initializes all fields to the empty string
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ScrManager_Add_Load(object sender, EventArgs e)
     {
         audioPath = "";
@@ -35,17 +44,34 @@ internal partial class ScrManager_Add : UserControl{
         beatPath = "";
     }
 
+    /// <summary>
+    /// goes back to the title screen and resets this user control.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btn_backClicked(object sender, EventArgs e)
     {
         handler.gotoTitle();
         handler.goUpdate_SongManage();
     }
 
+    /// <summary>
+    /// sets the field for audio path to the file opened by the user and updates
+    /// the button to show the file picked
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btn_SelectSongFileClicked(object sender, EventArgs e)
     {
         setFileandUpdateButton(ref audioPath, ".wav", btn_SelectSongFile);
     }
 
+    /// <summary>
+    /// if it hasnt been pressed yet, displays the default message. if not, it cycles through 
+    /// the enum values in genreArray and displays the text on the button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btn_SelectGenreClicked(object sender, EventArgs e)
     {
         if (currentGenreIndex == genreArray.Length - 1 || currentGenreIndex == -1)
@@ -61,16 +87,27 @@ internal partial class ScrManager_Add : UserControl{
         songGenre.ToLower();
     }
 
+    /// <summary>
+    /// sets the field for beat path to the file opened by the user and updates
+    /// the button to show the file picked
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btn_SelectMapClicked(object sender, EventArgs e)
     {
         setFileandUpdateButton(ref beatPath, ".txt", btn_selectMap);
     }
 
+    /// <summary>
+    /// creates a song folder in Songs and has input validation.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btn_CreateSongClicked(object sender, EventArgs e)
     {
         if (isPathFull(SONGS_ROOT_PATH))
         {
-            MessageBox.Show(@"Too many songs in the folder. Maximum amount is 5. Try deleting a song folder" + 
+            MessageBox.Show($"Too many songs in the folder. Maximum amount is {MAX_SONG_AMOUNT}. Try deleting a song folder" + 
                            "from the Delete button in Manage Songs and then come back.",
                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
@@ -79,20 +116,34 @@ internal partial class ScrManager_Add : UserControl{
         bool validSongFile = Path.GetExtension(audioPath) == ".wav";
         bool validGenre = songGenre != "";
         bool validBeatMap = Path.GetExtension(beatPath) == ".txt";
-            if (validSongFile && validGenre && validBeatMap)
+            if (validSongFile && validGenre)
             {
                 DialogResult confirmation = MessageBox.Show("Any songs that share the same name and genre will be overwritten. Do you want to " +
-                                            "proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                "proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (confirmation == DialogResult.Yes)
                 {
                     string songName = Path.GetFileNameWithoutExtension(audioPath);
                     string folderName = $"{songName}_{songGenre.ToLower()}";
                     string newFolderPath = Path.Combine(SONGS_ROOT_PATH, folderName);
-                MessageBox.Show(newFolderPath);
                     System.IO.Directory.CreateDirectory(newFolderPath);
                     string songCopiedFile = Path.Combine(newFolderPath, "audio.wav");
-                    createJSON_mapFromText(beatPath, newFolderPath);
-                    //string beatCopiedFile = Path.Combine(newFolderPath, "beat.txt");
+                    if (validBeatMap)
+                    {
+                        createJSON_mapFromText(beatPath, newFolderPath);
+                    }
+                    else
+                    {
+                    DialogResult errorHandling = MessageBox.Show("The beat map is invalid. Would you like use an autogenerated beat map instead?",
+                                                                "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (errorHandling == DialogResult.Yes) { 
+                            createJSON_mapFromAudio(newFolderPath); 
+                        }
+
+                        else { 
+                            File.Delete(newFolderPath); 
+                            return; 
+                        }
+                    }
                     File.Copy(audioPath, songCopiedFile, true);
                     MessageBox.Show("Song Succesfully Added!");
                 }
@@ -119,6 +170,13 @@ internal partial class ScrManager_Add : UserControl{
             }
     }
 
+    /// <summary>
+    /// sets a parameter to the filepath and updates a button to display the name of the file 
+    /// alogn with its extension
+    /// </summary>
+    /// <param name="field"></param>
+    /// <param name="extension"></param>
+    /// <param name="button"></param>
     private void setFileandUpdateButton(ref string field, string extension, Button button)
     {
         string filter = extension + "|";
@@ -130,13 +188,33 @@ internal partial class ScrManager_Add : UserControl{
             button.Text = $"{Path.GetFileName(field)}\nClick to change {extension} file.";
         }
     }
+    /// <summary>
+    /// creates a beat map based off of the old method to get beat timings.
+    /// the logic is similiar to createJSON_mapFromTest. Refactor later once avaialable
+    /// </summary>
+    /// <param name="directoryPath"></param>
+    /// <param name="directory"></param>
+    private void createJSON_mapFromAudio(string directoryPath)
+    {
+        Audio song = new Audio(directoryPath);
+        List<double> beatTimeList = song.createActionTimesFromsongFile();
+        string fullFilePath = Path.Combine(directoryPath, "beat.json");
+        using (File.Create(directoryPath));
+        string jsonString = JsonSerializer.Serialize(beatTimeList);
+        File.WriteAllText(fullFilePath, jsonString);
+    }
 
-    private void createJSON_mapFromText(string textFile, string path)
+    /// <summary>
+    /// Takes in a txt file, reads it, and then create a json file in the appropiate format
+    /// in the song directory
+    /// </summary>
+    /// <param name="textFile"></param>
+    /// <param name="directory"></param>
+    private void createJSON_mapFromText(string textFile, string directory)
     {
         List<Double> beatTimeList = new();
         string[] lines = File.ReadAllLines(textFile);
-        string fullFilePath = Path.Combine(path, "beat.json");        
-        MessageBox.Show(fullFilePath);
+        string fullFilePath = Path.Combine(directory, "beat.json");
         using (File.Create(fullFilePath));
         foreach (string line in lines)
         {
@@ -161,6 +239,13 @@ internal partial class ScrManager_Add : UserControl{
         File.WriteAllText(fullFilePath, jsonString);
     }
 
+    /// <summary>
+    /// checks to see if the songs folder has more than the maximum amount of songs
+    /// according to the maximum limit. This is called whenever a user creates a song 
+    /// and prevents them from doing so if this method returns true
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     private bool isPathFull(string path)
     {
         String[] subdirectories = Directory.GetDirectories(path);

@@ -12,6 +12,7 @@ internal partial class FrmGame : Form
 {
     private List<Note> notes;
     private const float noteSpeed = 0.5f;
+    //private PictureBox[4] picTargets;
     private Audio curSong;
     private Score score;
 
@@ -41,7 +42,7 @@ internal partial class FrmGame : Form
         notes = new();
         foreach (var actionTime in curSong.ActionTimes)
         {
-            double x = actionTime * noteSpeed + picTarget.Left + picTarget.Width;
+            double x = actionTime * noteSpeed + fret1.Left + fret1.Width;
             notes.Add(new Note(x));
         }
         Timer tmrWaitThenPlay = new()
@@ -64,11 +65,11 @@ internal partial class FrmGame : Form
         foreach (var note in notes)
         {
             note.Move(tmrPlay.Interval * (noteSpeed * 1.3));
-            if (note.isPicNull() /*&& note.getXPos() >= 2000 * noteSpeed*/)
+            if (note.isPicNull() && note.getXPos() <= 2000)
             {
                 note.setPic(createMarkerPic());
             }
-            if (note.CheckMiss(picTarget))
+            if (note.CheckMiss(fret1))
             {
                 score.Miss();
             }
@@ -88,7 +89,7 @@ internal partial class FrmGame : Form
         {
             foreach (var note in notes)
             {
-                if (note.CheckHit(picTarget))
+                if (note.CheckHit(fret1))
                 {
                     score.Add(1);
                     lblScore.Text = score.Amount.ToString();
@@ -101,14 +102,14 @@ internal partial class FrmGame : Form
 
     private void FrmMain_KeyDown(object sender, KeyEventArgs e)
     {
-     
-            picTarget.BackgroundImage = Resources.pressed;
-        
+
+        fret1.BackgroundImage = Resources.pressed;
+
     }
 
     private void FrmMain_KeyUp(object sender, KeyEventArgs e)
     {
-        picTarget.BackgroundImage = Resources._default;
+        fret1.BackgroundImage = Resources._default;
     }
 
     private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -134,7 +135,7 @@ internal partial class FrmGame : Form
             Width = noteSize,
             Height = noteSize,
             Left = -100,
-            Top = picTarget.Top + picTarget.Height / 2 - noteSize / 2,
+            Top = fret1.Top + fret1.Height / 2 - noteSize / 2,
             BackgroundImage = Resources.marker,
             BackgroundImageLayout = ImageLayout.Stretch,
             Anchor = AnchorStyles.Bottom,
@@ -145,6 +146,11 @@ internal partial class FrmGame : Form
     }
 
     private void panel1_Paint(object sender, PaintEventArgs e)
+    {
+
+    }
+
+    private void pictureBox3_Click(object sender, EventArgs e)
     {
 
     }

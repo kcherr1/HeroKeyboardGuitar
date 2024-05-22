@@ -45,7 +45,6 @@ public class Audio {
     public Audio(string directoryPath) {
         this.directoryPath = directoryPath;
         songFile = Path.Combine(directoryPath, "audio.wav");
-        MessageBox.Show(songFile);
         beatMap = Path.Combine(directoryPath, "beat.json");
         fileReader = new AudioFileReader(songFile);
         int sampleRate = fileReader.WaveFormat.SampleRate;
@@ -62,7 +61,10 @@ public class Audio {
         StreamLengthInBytes = fileReader.Length;
         outputDevice = new();
         ActionTimes = new();
-        setActionTimes(); 
+        if (File.Exists(beatMap))
+        {
+            setActionTimes();
+        }
     }
 
     /// <summary>
@@ -89,6 +91,65 @@ public class Audio {
         string jsonText = File.ReadAllText(beatMap);
         ActionTimes = JsonSerializer.Deserialize<List<Double>>(jsonText);
         MessageBox.Show(jsonText);
+    }
+
+    public List<Double> createActionTimesFromsongFile()
+    {
+        List<double> clusters = new();
+        List<double> curCluster = new();
+        double THRES = 0.4;
+        bool inCluster = false;
+        const int MAX_TOLERANCE = 500;
+        int curTolerance = 0;
+        int clusterStart = -1;
+        for (int i = 0; i < samples.Length; i++)
+        {
+            var sample = Math.Abs(samples[i]);
+            if (!inCluster)
+            {
+                if (Math.Abs(sample) > THRES)
+                { 
+                    inCluster = true;
+                    curTolerance = 0;
+                    curCluster = new();
+                    clusterStart = i;
+                    clusters.Add(THRES);
+                    curCluster.Add(sample);
+                }
+                else
+                {
+                    clusters.Add(0.0);
+                }
+            }
+            else
+            {
+                if (Math.Abs(sample) < THRES / 1.5)
+                {
+                    curTolerance++;
+                    if (curTolerance >= MAX_TOLERANCE)
+                    {
+                        inCluster = false;
+                        int actionIndex = clusterStart + curCluster.IndexOf(curCluster.Max());
+                        double actionTime = (actionIndex / (double)samples.Length) * AudioLengthInMs;
+                        ActionTimes.Add(actionTime);
+                        clusters.Add(0.0);
+                        curCluster.Add(0.0);
+                    }
+                    else
+                    {
+                        clusters.Add(THRES);
+                        curCluster.Add(sample);
+                    }
+                }
+                else
+                {
+                    curTolerance = 0;
+                    clusters.Add(THRES);
+                    curCluster.Add(sample);
+                }
+            }
+        }
+        return ActionTimes;
     }
 
     /// <summary>
