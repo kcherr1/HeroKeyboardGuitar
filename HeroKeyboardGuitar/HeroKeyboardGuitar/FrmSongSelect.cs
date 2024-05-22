@@ -43,7 +43,7 @@ namespace HeroKeyboardGuitar {
         }
         private void FrmSongSelect_Load(object sender, EventArgs e)
         {
-            
+
 
             // Add music to combo boxes (AKA dropdown menus)
             foreach (var songFilePath in Directory.GetFiles(SONGS_ROOT_PATH))
@@ -208,14 +208,14 @@ namespace HeroKeyboardGuitar {
         {
             // Image Saturation
             pictureBox1.BackgroundImage = Properties.Resources.Picture2;
-            pictureBox1.BackgroundImageLayout= ImageLayout.Stretch;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox1_MouseHover(object sender, EventArgs e)
         {
             // Image Saturation (just in case)
             pictureBox1.BackgroundImage = Properties.Resources.Picture2;
-            pictureBox1 .BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox1_MouseLeave(object sender, EventArgs e)
@@ -232,14 +232,14 @@ namespace HeroKeyboardGuitar {
         {
             // Image Saturation
             pictureBox2.BackgroundImage = Properties.Resources.Picture3;
-            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;   
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox2_MouseEnter(object sender, EventArgs e)
         {
             // Image Saturation (Just in case)
             pictureBox2.BackgroundImage = Properties.Resources.Picture3;
-            pictureBox2 .BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox2_MouseLeave(object sender, EventArgs e)
@@ -303,7 +303,7 @@ namespace HeroKeyboardGuitar {
         {
             // If ComboBox selection has happened...
             if (comboBox2.SelectedIndex != -1)
-            {   
+            {
                 // If button2 is invisible, make it visble 
                 if (!button2.Visible)
                 {
@@ -376,6 +376,24 @@ namespace HeroKeyboardGuitar {
             frmMain.Show();
         }
 
-        
+        private void difficulty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Update Game.speed based on selected difficulty
+            switch (difficulty.SelectedIndex)
+            {
+                case 0: // Easy
+                    Game.speed = 0.3f;
+                    break;
+                case 1: // Normal
+                    Game.speed = 0.5f;
+                    break;
+                case 2: // Hard
+                    Game.speed = 0.8f;
+                    break;
+                default:
+                    break;
+                       
+            }
+        }
     }
 }

@@ -34,6 +34,7 @@
             button1 = new System.Windows.Forms.Button();
             button2 = new System.Windows.Forms.Button();
             button3 = new System.Windows.Forms.Button();
+            difficulty = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -45,9 +46,9 @@
             pictureBox1.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pictureBox1.Location = new System.Drawing.Point(12, 12);
+            pictureBox1.Location = new System.Drawing.Point(12, 39);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(329, 465);
+            pictureBox1.Size = new System.Drawing.Size(329, 438);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
@@ -59,9 +60,9 @@
             pictureBox2.BackColor = System.Drawing.Color.Black;
             pictureBox2.BackgroundImage = Properties.Resources.Picture4;
             pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pictureBox2.Location = new System.Drawing.Point(364, 12);
+            pictureBox2.Location = new System.Drawing.Point(364, 39);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new System.Drawing.Size(329, 465);
+            pictureBox2.Size = new System.Drawing.Size(329, 438);
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
@@ -74,9 +75,9 @@
             pictureBox3.BackgroundImage = (System.Drawing.Image)resources.GetObject("pictureBox3.BackgroundImage");
             pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pictureBox3.Location = new System.Drawing.Point(719, 12);
+            pictureBox3.Location = new System.Drawing.Point(719, 39);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new System.Drawing.Size(329, 465);
+            pictureBox3.Size = new System.Drawing.Size(329, 438);
             pictureBox3.TabIndex = 2;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
@@ -164,12 +165,23 @@
             button3.Visible = false;
             button3.Click += button3_Click;
             // 
+            // difficulty
+            // 
+            difficulty.FormattingEnabled = true;
+            difficulty.Items.AddRange(new object[] { "Easy", "Normal", "Hard" });
+            difficulty.Location = new System.Drawing.Point(424, 10);
+            difficulty.Name = "difficulty";
+            difficulty.Size = new System.Drawing.Size(205, 23);
+            difficulty.TabIndex = 10;
+            difficulty.SelectedIndexChanged += difficulty_SelectedIndexChanged;
+            // 
             // FrmSongSelect
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Black;
             ClientSize = new System.Drawing.Size(1060, 565);
+            Controls.Add(difficulty);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
@@ -200,5 +212,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox difficulty;
     }
 }
