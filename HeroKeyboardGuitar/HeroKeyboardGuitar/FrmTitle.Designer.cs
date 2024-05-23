@@ -35,9 +35,10 @@
             btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             btnStart.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnStart.ForeColor = System.Drawing.Color.Black;
-            btnStart.Location = new System.Drawing.Point(468, 377);
+            btnStart.Location = new System.Drawing.Point(535, 503);
+            btnStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnStart.Name = "btnStart";
-            btnStart.Size = new System.Drawing.Size(170, 90);
+            btnStart.Size = new System.Drawing.Size(194, 120);
             btnStart.TabIndex = 0;
             btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = false;
@@ -48,9 +49,10 @@
             open_instructions.BackColor = System.Drawing.Color.FromArgb(192, 255, 255);
             open_instructions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             open_instructions.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            open_instructions.Location = new System.Drawing.Point(1, 503);
+            open_instructions.Location = new System.Drawing.Point(1, 671);
+            open_instructions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             open_instructions.Name = "open_instructions";
-            open_instructions.Size = new System.Drawing.Size(162, 61);
+            open_instructions.Size = new System.Drawing.Size(185, 81);
             open_instructions.TabIndex = 1;
             open_instructions.Text = "Instructions";
             open_instructions.UseVisualStyleBackColor = false;
@@ -58,16 +60,18 @@
             // 
             // FrmTitle
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.title;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            ClientSize = new System.Drawing.Size(1060, 565);
+            ClientSize = new System.Drawing.Size(1211, 753);
             Controls.Add(open_instructions);
             Controls.Add(btnStart);
             DoubleBuffered = true;
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "FrmTitle";
             Text = "Hero Keyboard Guitar";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
             Load += FrmTitle_Load;
             ResumeLayout(false);
         }
