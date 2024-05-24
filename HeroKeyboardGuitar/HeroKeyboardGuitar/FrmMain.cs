@@ -31,6 +31,7 @@ internal partial class FrmMain : Form
     private TimeSpan pausedTime;
     private bool wasPlaying = false;
     FrmInstructions instructions = new FrmInstructions();
+    private bool called_upload = false;
 
 
     // for double buffering
@@ -304,11 +305,15 @@ internal partial class FrmMain : Form
         tmrPlay.Enabled = false;
         game_timer.Enabled = false;
         game_timer.Dispose();
-        OnGameEnd(lblScore.Text.ToString());
+        if (!called_upload)
+        {
+            OnGameEnd(lblScore.Text.ToString());
+        }
     }
 
     private void OnGameEnd(string score)
     {
+        called_upload = true;
         using (var scoreInputForm = new FrmScoreInput())
         {
             scoreInputForm.ShowDialog();
