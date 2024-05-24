@@ -26,11 +26,13 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             tmrPlay = new System.Windows.Forms.Timer(components);
             picTarget = new System.Windows.Forms.PictureBox();
             lblScore = new System.Windows.Forms.Label();
             tmrScoreShrink = new System.Windows.Forms.Timer(components);
             panBg = new System.Windows.Forms.Panel();
+            label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             button1 = new System.Windows.Forms.Button();
             pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -77,6 +79,7 @@
             // panBg
             // 
             panBg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            panBg.Controls.Add(label2);
             panBg.Controls.Add(label1);
             panBg.Controls.Add(button1);
             panBg.Controls.Add(lblScore);
@@ -85,6 +88,18 @@
             panBg.Name = "panBg";
             panBg.Size = new System.Drawing.Size(1237, 480);
             panBg.TabIndex = 6;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = System.Drawing.Color.White;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Location = new System.Drawing.Point(12, 145);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(807, 144);
+            label2.TabIndex = 9;
+            label2.Text = resources.GetString("label2.Text");
+            label2.Visible = false;
             // 
             // label1
             // 
@@ -100,9 +115,9 @@
             // button1
             // 
             button1.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            button1.Location = new System.Drawing.Point(372, 234);
+            button1.Location = new System.Drawing.Point(406, 178);
             button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(210, 82);
+            button1.Size = new System.Drawing.Size(176, 60);
             button1.TabIndex = 6;
             button1.Text = "Return to Menu";
             button1.UseVisualStyleBackColor = true;
@@ -154,5 +169,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

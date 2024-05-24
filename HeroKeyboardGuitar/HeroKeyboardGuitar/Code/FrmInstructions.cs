@@ -14,8 +14,9 @@ namespace HeroKeyboardGuitar
             instructionsLabel.Text = "How to Play:\n\n" +
                                         "1. Select a song and difficulty from the drop-down menu.\n" +
                                         "2. Press 'f' to begin the game.\n" +
-                                        "3. Time the space bar presses until the note reaches the green circle to make Cherry happy.\n" +
-                                        "4. Have fun!";
+                                        "3. Press 'Esc' to pause the game. \n" +
+                                        "4. Time the space bar presses until the note reaches the green circle to make Cherry happy.\n" +
+                                        "5. Have fun!";
             instructionsLabel.AutoSize = true;
             instructionsLabel.Font = new Font("Arial", 12); // Change font and size
             instructionsLabel.TextAlign = ContentAlignment.MiddleLeft; // Align text to left

@@ -36,6 +36,7 @@
             button3 = new System.Windows.Forms.Button();
             difficulty = new System.Windows.Forms.ComboBox();
             label1 = new System.Windows.Forms.Label();
+            button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -200,12 +201,26 @@
             label1.TabIndex = 11;
             label1.Text = "Difficulty: ";
             // 
+            // button4
+            // 
+            button4.BackColor = System.Drawing.Color.White;
+            button4.Font = new System.Drawing.Font("Showcard Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button4.ForeColor = System.Drawing.Color.Blue;
+            button4.Location = new System.Drawing.Point(12, 1);
+            button4.Name = "button4";
+            button4.Size = new System.Drawing.Size(219, 38);
+            button4.TabIndex = 12;
+            button4.Text = "Return to Menu";
+            button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
+            // 
             // FrmSongSelect
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Black;
             ClientSize = new System.Drawing.Size(1060, 565);
+            Controls.Add(button4);
             Controls.Add(label1);
             Controls.Add(difficulty);
             Controls.Add(button3);
@@ -241,5 +256,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox difficulty;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button4;
     }
 }
