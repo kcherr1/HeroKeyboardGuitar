@@ -26,7 +26,6 @@ internal partial class FrmMain : Form
     private DateTime spacePressTime;
     private int total_notes_hit;
     public bool isPaused = false;
-    Stopwatch stopwatch;
 
 
     // for double buffering
@@ -165,7 +164,6 @@ internal partial class FrmMain : Form
             // Pause the game 
             if (!isPaused && !game_stop)
             {
-                stopwatch.Start();
                 isPaused = true;
                 if (!button1.Visible)
                 {
@@ -176,7 +174,6 @@ internal partial class FrmMain : Form
             // Unpause the game 
             else
             {
-                stopwatch.Stop();
                 isPaused = false;
                 button1.Visible = false;
                 Game.GetInstance().CurSong.Play();
@@ -258,7 +255,7 @@ internal partial class FrmMain : Form
     {
         TimeSpan elapsed = DateTime.Now - game_start_time;
 
-
+        // COLIN: Note that if the player paused at any time, this will not reach the end of the song 
         if (elapsed.TotalMilliseconds > curSong.AudioLengthInMs)
         {
             lblScore.Text = total_notes_hit.ToString() + "/" + notes.Count().ToString();
