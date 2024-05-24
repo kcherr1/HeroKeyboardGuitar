@@ -252,9 +252,15 @@ internal partial class FrmMain : Form {
         this.KeyPreview = false;
         Game.GetInstance().CurSong.Stop();
         tmrPlay.Enabled = false;
+        game_timer.Enabled = false;
+        game_timer.Dispose();
     }
 
     private void button1_Click(object sender, EventArgs e) {
         this.Close();
+        tmrPlay.Enabled = false;
+        game_timer.Enabled = false;
+        game_timer.Dispose();
+
     }
 }
