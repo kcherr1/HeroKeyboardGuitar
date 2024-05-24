@@ -1,5 +1,6 @@
 ﻿namespace HeroKeyboardGuitar {
     partial class FrmMain {
+        private System.Windows.Forms.Button start_btn;
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -22,18 +23,16 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             components = new System.ComponentModel.Container();
             tmrPlay = new System.Windows.Forms.Timer(components);
             picTarget = new System.Windows.Forms.PictureBox();
             lblScore = new System.Windows.Forms.Label();
             tmrScoreShrink = new System.Windows.Forms.Timer(components);
             panBg = new System.Windows.Forms.Panel();
-<<<<<<< Updated upstream
-=======
-            button1 = new System.Windows.Forms.Button();
-            label1 = new System.Windows.Forms.Label();
->>>>>>> Stashed changes
+            return_btn = new System.Windows.Forms.Button();
+            start_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)picTarget).BeginInit();
             panBg.SuspendLayout();
             SuspendLayout();
@@ -46,6 +45,7 @@
             // picTarget
             // 
             picTarget.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            picTarget.BackColor = System.Drawing.Color.Transparent;
             picTarget.BackgroundImage = Properties.Resources._default;
             picTarget.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             picTarget.Location = new System.Drawing.Point(372, 498);
@@ -75,45 +75,40 @@
             // panBg
             // 
             panBg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-<<<<<<< Updated upstream
-=======
-            panBg.Controls.Add(button1);
-            panBg.Controls.Add(label1);
->>>>>>> Stashed changes
+            panBg.Controls.Add(return_btn);
+            panBg.Controls.Add(start_button);
             panBg.Controls.Add(lblScore);
             panBg.Dock = System.Windows.Forms.DockStyle.Top;
             panBg.Location = new System.Drawing.Point(0, 0);
             panBg.Name = "panBg";
             panBg.Size = new System.Drawing.Size(1237, 480);
             panBg.TabIndex = 6;
-<<<<<<< Updated upstream
-=======
+            panBg.Paint += panBg_Paint;
             // 
-            // button1
+            // return_btn
             // 
-            button1.Location = new System.Drawing.Point(502, 219);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(210, 64);
-            button1.TabIndex = 7;
-            button1.Text = "Return to Menu";
-            button1.UseVisualStyleBackColor = true;
-            button1.Visible = false;
-            button1.Click += button1_Click;
+            return_btn.BackColor = System.Drawing.Color.DarkRed;
+            return_btn.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            return_btn.Location = new System.Drawing.Point(1223, 0);
+            return_btn.Name = "return_btn";
+            return_btn.Size = new System.Drawing.Size(141, 72);
+            return_btn.TabIndex = 7;
+            return_btn.Text = "Return to Menu";
+            return_btn.UseVisualStyleBackColor = false;
+            return_btn.Click += return_btn_Click;
             // 
-            // label1
+            // start_button
             // 
-            label1.AutoSize = true;
-            label1.BackColor = System.Drawing.Color.Transparent;
-            label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label1.ForeColor = System.Drawing.Color.White;
-            label1.Location = new System.Drawing.Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(585, 75);
-            label1.TabIndex = 6;
-            label1.Text = "Press 'F' to Begin!!!";
->>>>>>> Stashed changes
+            start_button.BackColor = System.Drawing.Color.DarkRed;
+            start_button.Font = new System.Drawing.Font("Comic Sans MS", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            start_button.ForeColor = System.Drawing.SystemColors.ControlText;
+            start_button.Location = new System.Drawing.Point(304, 216);
+            start_button.Name = "start_button";
+            start_button.Size = new System.Drawing.Size(637, 151);
+            start_button.TabIndex = 6;
+            start_button.Text = "START";
+            start_button.UseVisualStyleBackColor = false;
+            start_button.Click += start_button_Click;
             // 
             // FrmMain
             // 
@@ -122,8 +117,8 @@
             BackColor = System.Drawing.Color.Black;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             ClientSize = new System.Drawing.Size(1237, 644);
-            Controls.Add(panBg);
             Controls.Add(picTarget);
+            Controls.Add(panBg);
             Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Name = "FrmMain";
             Text = "Play Song";
@@ -131,10 +126,10 @@
             FormClosing += FrmMain_FormClosing;
             Load += FrmMain_Load;
             KeyDown += FrmMain_KeyDown;
+            KeyPress += FrmMain_KeyPress;
             KeyUp += FrmMain_KeyUp;
             ((System.ComponentModel.ISupportInitialize)picTarget).EndInit();
             panBg.ResumeLayout(false);
-            panBg.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -144,10 +139,7 @@
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Timer tmrScoreShrink;
         private System.Windows.Forms.Panel panBg;
-<<<<<<< Updated upstream
-=======
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
->>>>>>> Stashed changes
+        private System.Windows.Forms.Button start_button;
+        private System.Windows.Forms.Button return_btn;
     }
 }
