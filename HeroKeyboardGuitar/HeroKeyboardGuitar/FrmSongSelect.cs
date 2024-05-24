@@ -1,65 +1,59 @@
-﻿using HeroKeyboardGuitar.Properties;
-using ScottPlot.Colormaps;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Tracing;
+﻿using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace HeroKeyboardGuitar {
-
-    internal partial class FrmSongSelect : Form
-    {
+    internal partial class FrmSongSelect : Form {
         private readonly string SONGS_ROOT_PATH = $"{Application.StartupPath}../../../Songs/";
-        // COLIN: I might have to change the filepath to the images/songs to something similar to these Application Startup Lines
-        private readonly string PICS_ROOT_PATH = $"{Application.StartupPath}../../../Resources/";
 
-
-
-        // Dictionary that stores <filepath, genre> 
-        Dictionary<string, HeroKeyboardGuitar.GenreType> songs = new Dictionary<string, HeroKeyboardGuitar.GenreType>();
-
-        public FrmSongSelect()
-        {
+        public FrmSongSelect() {
             InitializeComponent();
+<<<<<<< Updated upstream
+=======
             // Load default text for the comboboxes that are initially hidden
             comboBox1.Text = "--Select a Song--";
             comboBox2.Text = "--Select a Song--";
             comboBox3.Text = "--Select a Song--";
+            difficulty.Text = "Normal";
+>>>>>>> Stashed changes
         }
 
-        private void FrmSongSelect_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.KeyCode == Keys.Escape)
-            {
-                Close();
-            }
-        }
-        private void FrmSongSelect_Load(object sender, EventArgs e)
-        {
-
-
-            // Add music to combo boxes (AKA dropdown menus)
-            foreach (var songFilePath in Directory.GetFiles(SONGS_ROOT_PATH))
-            {
-                // Get filepath
+        private void FrmSongSelect_Load(object sender, EventArgs e) {
+            int top = 50;
+            int left = 20;
+            const int size = 300;
+            const int spacing = 50;
+            foreach (var songFilePath in Directory.GetFiles(SONGS_ROOT_PATH)) {
                 var song = Path.GetFileNameWithoutExtension(songFilePath);
                 var songName = song.Split('_')[0];
-                var filePath = songFilePath;
-                // Get genre
                 GenreType genre;
-
-                // Country song from Dr.Cherry's original code? No idea how it works tbh
-                if (!Enum.TryParse(song.Split('_')[1], true, out genre))
-                {
+                if (!Enum.TryParse(song.Split('_')[1], true, out genre)) {
                     genre = GenreType.COUNTRY;
                 }
+<<<<<<< Updated upstream
+                Button btnSong = new() {
+                    BackgroundImage = Game.GetBg(genre),
+                    BackgroundImageLayout = ImageLayout.Stretch,
+                    Width = size,
+                    Height = size,
+                    Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(songName.ToLower()),
+                    TextAlign = ContentAlignment.BottomCenter,
+                    Font = new Font("Arial", 30),
+                    ForeColor = Color.Cyan,
+                    Top = top,
+                    Left = left,
+                };
+                left += size + spacing;
+                var filePath = songFilePath;
+                btnSong.Click += (e, sender) => {
+                    Game.SetCurSong(filePath, genre);
+                    FrmMain frmMain = new();
+                    frmMain.Show();
+                };
+                Controls.Add(btnSong);
+=======
 
                 // Add Rock and RNB to Picture 1 
                 if (genre == GenreType.ROCK || genre == GenreType.RNB)
@@ -134,8 +128,9 @@ namespace HeroKeyboardGuitar {
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             // Load funny mario gif
-            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImage = Properties.Resources.ezgif_1_453554342f;
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
+
             // Make the combobox visible
             comboBox3.Visible = true;
 
@@ -199,7 +194,7 @@ namespace HeroKeyboardGuitar {
         private void pictureBox3_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome
-            pictureBox3.Image = null;
+            //pictureBox3.Image = null;
             pictureBox3.BackgroundImage = Properties.Resources.Picture6;
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
         }
@@ -254,19 +249,22 @@ namespace HeroKeyboardGuitar {
         private void comboBox3_MouseEnter(object sender, EventArgs e)
         {
             // Image Saturation
-            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImage = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox3_MouseHover(object sender, EventArgs e)
         {
             // Image Saturation
-            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImage = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox3_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome 
-            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImage = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
             // Remove ComboBox
             comboBox3.Visible = false;
 
@@ -393,6 +391,7 @@ namespace HeroKeyboardGuitar {
                 default:
                     break;
                        
+>>>>>>> Stashed changes
             }
         }
     }
