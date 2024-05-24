@@ -31,20 +31,12 @@ namespace HeroKeyboardGuitar {
             comboBox1.Text = "--Select a Song--";
             comboBox2.Text = "--Select a Song--";
             comboBox3.Text = "--Select a Song--";
+            difficulty.Text = "Normal";
+
         }
 
-        private void FrmSongSelect_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.KeyCode == Keys.Escape)
-            {
-                Close();
-            }
-        }
         private void FrmSongSelect_Load(object sender, EventArgs e)
         {
-
-
             // Add music to combo boxes (AKA dropdown menus)
             foreach (var songFilePath in Directory.GetFiles(SONGS_ROOT_PATH))
             {
@@ -77,7 +69,9 @@ namespace HeroKeyboardGuitar {
 
                 // Add <filepath,genre> to the dictionary called "songs" as a key:value pair 
                 songs.Add(filePath, genre);
+
             }
+
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -134,7 +128,7 @@ namespace HeroKeyboardGuitar {
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             // Load funny mario gif
-            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImage = Properties.Resources.ezgif_1_453554342f;
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
             // Make the combobox visible
             comboBox3.Visible = true;
@@ -199,7 +193,7 @@ namespace HeroKeyboardGuitar {
         private void pictureBox3_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome
-            pictureBox3.Image = null;
+            //pictureBox3.Image = null;
             pictureBox3.BackgroundImage = Properties.Resources.Picture6;
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
         }
@@ -254,19 +248,22 @@ namespace HeroKeyboardGuitar {
         private void comboBox3_MouseEnter(object sender, EventArgs e)
         {
             // Image Saturation
-            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImage = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox3_MouseHover(object sender, EventArgs e)
         {
             // Image Saturation
-            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImage = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void comboBox3_MouseLeave(object sender, EventArgs e)
         {
             // Image MonoChrome 
-            pictureBox3.Image = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImage = Properties.Resources.ezgif_1_453554342f;
+            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
             // Remove ComboBox
             comboBox3.Visible = false;
 
@@ -392,8 +389,9 @@ namespace HeroKeyboardGuitar {
                     break;
                 default:
                     break;
-                       
+
             }
         }
+
     }
 }
