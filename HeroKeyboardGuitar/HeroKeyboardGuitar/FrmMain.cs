@@ -227,6 +227,10 @@ internal partial class FrmMain : Form
                 lblScore.Text = score.Amount.ToString();
                 lblScore.Font = new Font("Arial", 42);
                 noteHit = true;
+                pictureBox1.BackgroundImage = Properties.Resources.Cherry_Good;
+                pictureBox1.BackgroundImageLayout = ImageLayout.Center;   
+
+
                 break;
             }
         }
@@ -234,6 +238,9 @@ internal partial class FrmMain : Form
         {
             score.Deduct(1);
             lblScore.Text = score.Amount.ToString();
+            pictureBox1.BackgroundImage = Properties.Resources.Cherry_Bad;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Center;
+
         }
     }
 
@@ -241,6 +248,8 @@ internal partial class FrmMain : Form
     {
         score.Deduct(1);
         lblScore.Text = score.Amount.ToString();
+        pictureBox1.BackgroundImage = Properties.Resources.Cherry_Bad;
+        pictureBox1.BackgroundImageLayout = ImageLayout.Center;
 
         foreach (var note in notes)
         {

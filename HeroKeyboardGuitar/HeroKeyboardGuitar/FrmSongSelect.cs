@@ -37,8 +37,6 @@ namespace HeroKeyboardGuitar {
 
         private void FrmSongSelect_Load(object sender, EventArgs e)
         {
-
-
             // Add music to combo boxes (AKA dropdown menus)
             foreach (var songFilePath in Directory.GetFiles(SONGS_ROOT_PATH))
             {
@@ -71,7 +69,9 @@ namespace HeroKeyboardGuitar {
 
                 // Add <filepath,genre> to the dictionary called "songs" as a key:value pair 
                 songs.Add(filePath, genre);
+
             }
+
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -389,8 +389,9 @@ namespace HeroKeyboardGuitar {
                     break;
                 default:
                     break;
-                       
+
             }
         }
+
     }
 }
