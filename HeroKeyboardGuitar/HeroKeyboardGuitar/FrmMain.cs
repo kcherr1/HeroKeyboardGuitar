@@ -303,10 +303,7 @@ internal partial class FrmMain : Form
         Game.GetInstance().CurSong.Stop();
         tmrPlay.Enabled = false;
         game_timer.Enabled = false;
-<<<<<<< Updated upstream
         game_timer.Dispose();
-=======
-
         OnGameEnd(lblScore.Text.ToString());
     }
 
@@ -336,7 +333,6 @@ internal partial class FrmMain : Form
             message += $"PlayerID: {row["PlayerID"]}, Score: {row["Score"]}\n";
         }
         MessageBox.Show(message, "Top Scores");
->>>>>>> Stashed changes
     }
 
     private void button1_Click(object sender, EventArgs e)
@@ -348,14 +344,5 @@ internal partial class FrmMain : Form
 
     }
 
-    private void button2_Click(object sender, EventArgs e)
-    {
-        instructions.Show();
 
-    }
-
-    private void button2_Leave(object sender, EventArgs e)
-    {
-        instructions.Hide();
-    }
 }
