@@ -26,7 +26,7 @@ internal partial class FrmMain : Form {
     private int total_notes_hit;
     public bool isPaused = false;
     private TimeSpan pausedTime;
-    private bool wasPlaying;
+    private bool wasPlaying = false;
 
 
     // for double buffering
@@ -150,6 +150,7 @@ internal partial class FrmMain : Form {
             }
             // Unpause the game 
             else {
+                game_start_time = DateTime.Now;
                 isPaused = false;
                 button1.Visible = false;
                 // Resume the song playback
@@ -229,10 +230,19 @@ internal partial class FrmMain : Form {
         TimeSpan elapsed = DateTime.Now - game_start_time;
 
         // COLIN: Note that if the player paused at any time, this will not reach the end of the song 
+        // Doesn't display total score, but the streak of the notes
         if (elapsed.TotalMilliseconds > curSong.AudioLengthInMs) {
             lblScore.Text = score.Amount.ToString() + "/" + notes.Count().ToString();
             tmrPlay.Stop(); // Stop the timer if the song is over
             EndGame();
+        }
+
+        if (curSong.OutputDevice.PlaybackState == NAudio.Wave.PlaybackState.Stopped && !isPaused) 
+        {
+            lblScore.Text = score.Amount.ToString() + "/" + notes.Count().ToString();
+            tmrPlay.Stop(); // Stop the timer if the song is over
+            EndGame();
+
         }
     }
 
