@@ -10,8 +10,7 @@ using System.Windows.Forms;
 
 namespace HeroKeyboardGuitar;
 
-internal partial class FrmMain : Form
-{
+internal partial class FrmMain : Form {
     private bool game_start = false;
     private bool game_stop = false;
     private Timer game_timer;
@@ -26,46 +25,38 @@ internal partial class FrmMain : Form
     private DateTime spacePressTime;
     private int total_notes_hit;
     public bool isPaused = false;
+    private TimeSpan pausedTime;
+    private bool wasPlaying;
 
 
     // for double buffering
-    protected override CreateParams CreateParams
-    {
-        get
-        {
+    protected override CreateParams CreateParams {
+        get {
             var cp = base.CreateParams;
             cp.ExStyle |= 0x02000000;    // Turn on WS_EX_COMPOSITED
             return cp;
         }
     }
 
-    public FrmMain()
-    {
+    public FrmMain() {
         InitializeComponent();
-
-
-
     }
 
-    public void FrmMain_Load(object sender, EventArgs e)
-    {
+    public void FrmMain_Load(object sender, EventArgs e) {
         score = new();
         lblScore.Text = score.Amount.ToString();
         panBg.BackgroundImage = Game.GetInstance().GetBg();
         panBg.Height = (int)(Height * 0.8);
         curSong = Game.GetInstance().CurSong;
         notes = new();
-        foreach (var actionTime in curSong.ActionTimes)
-        {
+        foreach (var actionTime in curSong.ActionTimes) {
             double x = actionTime * noteSpeed + picTarget.Left + picTarget.Width;
             const int noteSize = 50;
-            if (notes.Any(note => (x - note.Pic.Left) < noteSize / 2))
-            {
+            if (notes.Any(note => (x - note.Pic.Left) < noteSize / 2)) {
                 continue;
             }
             // Create note 
-            PictureBox picNote = new()
-            {
+            PictureBox picNote = new() {
                 BackColor = Color.Black,
                 ForeColor = Color.Black,
                 Width = noteSize,
@@ -84,32 +75,25 @@ internal partial class FrmMain : Form
 
     }
 
-    private void tmrPlay_Tick(object sender, EventArgs e)
-    {
+    private void tmrPlay_Tick(object sender, EventArgs e) {
         int index = curSong.GetPosition();
-        foreach (var note in notes)
-        {
+        foreach (var note in notes) {
 
-            if (!isPaused)
-            {
+            if (!isPaused) {
                 // Move the Notes?
                 note.Move(tmrPlay.Interval * (noteSpeed * 1.3));
-                if (note.CheckMiss(picTarget))
-                {
+                if (note.CheckMiss(picTarget)) {
                     score.Deduct(1);
                 }
             }
-            else
-            {
+            else {
                 note.Pause();
             }
 
         }
-        if (index >= curSong.GetNumberOfSamples() - 1)
-        {
+        if (index >= curSong.GetNumberOfSamples() - 1) {
             tmrPlay.Enabled = false;
-            foreach (var note in notes)
-            {
+            foreach (var note in notes) {
                 Controls.Remove(note.Pic);
                 note.Dispose();
             }
@@ -122,21 +106,16 @@ internal partial class FrmMain : Form
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void FrmMain_KeyDown(object sender, KeyEventArgs e)
-    {
+    private void FrmMain_KeyDown(object sender, KeyEventArgs e) {
         // Hit the notes
-        if (e.KeyCode == Keys.Space)
-        {
+        if (e.KeyCode == Keys.Space) {
             spacePressTime = DateTime.Now;
             isSpacebarHeld = false;
             picTarget.BackgroundImage = Resources.pressed;
         }
         // Start the game 
-        if (e.KeyCode == Keys.F)
-        {
-            if (!game_start)
-            {
-
+        if (e.KeyCode == Keys.F) {
+            if (!game_start) {
                 // Start the game
                 label1.Dispose();
                 Game.GetInstance().CurSong.Play();
@@ -150,8 +129,7 @@ internal partial class FrmMain : Form
                 game_timer.Tick += GameTimer_Tick;
                 game_timer.Start();
             }
-            else
-            {
+            else {
                 // COLIN: Issue, if 'F' is pressed after the game starts, the game will break. 
                 // COLIN: This suppression function doesn't work. For some reason, the AudioAnalyzing Play() function just freaks out despite countermeasures
                 e.SuppressKeyPress = true;
@@ -159,41 +137,38 @@ internal partial class FrmMain : Form
         }
 
         // Pause the game and stop the song
-        if (e.KeyCode == Keys.Escape)
-        {
+        if (e.KeyCode == Keys.Escape) {
             // Pause the game 
-            if (!isPaused && !game_stop)
-            {
+            if (!isPaused && !game_stop) {
                 isPaused = true;
-                if (!button1.Visible)
-                {
+                if (!button1.Visible) {
                     button1.Visible = true;
                 }
-                Game.GetInstance().CurSong.Stop();
+                // Pause the song playback
+                Game.GetInstance().CurSong.OutputDevice.Pause();
+                wasPlaying = true; // Indicate that the song was playing before pausing
             }
             // Unpause the game 
-            else
-            {
+            else {
                 isPaused = false;
                 button1.Visible = false;
-                Game.GetInstance().CurSong.Play();
+                // Resume the song playback
+                if (wasPlaying) {
+                    Game.GetInstance().CurSong.OutputDevice.Play();
+                }
+                wasPlaying = false; // Reset the flag
             }
         }
-
     }
 
-    private void FrmMain_KeyUp(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Space)
-        {
+    private void FrmMain_KeyUp(object sender, KeyEventArgs e) {
+        if (e.KeyCode == Keys.Space) {
             var duration = (DateTime.Now - spacePressTime).TotalMilliseconds;
-            if (duration < 100)
-            {
+            if (duration < 100) {
                 isTap = true;
                 ProcessNoteHitOrMiss();
             }
-            else
-            {
+            else {
                 isTap = false;
                 isSpacebarHeld = true;
                 ProcessNoteMiss();
@@ -202,26 +177,20 @@ internal partial class FrmMain : Form
         }
     }
 
-    private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
-    {
+    private void FrmMain_FormClosing(object sender, FormClosingEventArgs e) {
         Game.GetInstance().CurSong.Stop();
     }
 
-    private void tmrScoreShrink_Tick(object sender, EventArgs e)
-    {
-        if (lblScore.Font.Size > 20)
-        {
+    private void tmrScoreShrink_Tick(object sender, EventArgs e) {
+        if (lblScore.Font.Size > 20) {
             lblScore.Font = new("Arial", lblScore.Font.Size - 1);
         }
     }
 
-    private void ProcessNoteHitOrMiss()
-    {
+    private void ProcessNoteHitOrMiss() {
         bool noteHit = false;
-        foreach (var note in notes)
-        {
-            if (note.CheckHit(picTarget, isTap))
-            {
+        foreach (var note in notes) {
+            if (note.CheckHit(picTarget, isTap)) {
                 score.Add(1);
                 total_notes_hit += 1;
                 lblScore.Text = score.Amount.ToString();
@@ -234,8 +203,7 @@ internal partial class FrmMain : Form
                 break;
             }
         }
-        if (!noteHit && isTap)
-        {
+        if (!noteHit && isTap) {
             score.Deduct(1);
             lblScore.Text = score.Amount.ToString();
             pictureBox1.BackgroundImage = Properties.Resources.Cherry_Bad;
@@ -244,37 +212,31 @@ internal partial class FrmMain : Form
         }
     }
 
-    private void ProcessNoteMiss()
-    {
+    private void ProcessNoteMiss() {
         score.Deduct(1);
         lblScore.Text = score.Amount.ToString();
         pictureBox1.BackgroundImage = Properties.Resources.Cherry_Bad;
         pictureBox1.BackgroundImageLayout = ImageLayout.Center;
 
-        foreach (var note in notes)
-        {
-            if (note.CheckMiss(picTarget))
-            {
+        foreach (var note in notes) {
+            if (note.CheckMiss(picTarget)) {
                 break;
             }
         }
     }
 
-    private void GameTimer_Tick(object sender, EventArgs e)
-    {
+    private void GameTimer_Tick(object sender, EventArgs e) {
         TimeSpan elapsed = DateTime.Now - game_start_time;
 
         // COLIN: Note that if the player paused at any time, this will not reach the end of the song 
-        if (elapsed.TotalMilliseconds > curSong.AudioLengthInMs)
-        {
+        if (elapsed.TotalMilliseconds > curSong.AudioLengthInMs) {
             lblScore.Text = score.Amount.ToString() + "/" + notes.Count().ToString();
             tmrPlay.Stop(); // Stop the timer if the song is over
             EndGame();
         }
     }
 
-    private void EndGame()
-    {
+    private void EndGame() {
         game_stop = true;
         button1.Visible = true;
         this.KeyPreview = false;
@@ -282,8 +244,7 @@ internal partial class FrmMain : Form
         tmrPlay.Enabled = false;
     }
 
-    private void button1_Click(object sender, EventArgs e)
-    {
+    private void button1_Click(object sender, EventArgs e) {
         this.Close();
     }
 }
