@@ -2,15 +2,18 @@ using AudioAnalyzing;
 using HeroKeyboardGuitar.Properties;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Channels;
 using System.Windows.Forms;
 
 namespace HeroKeyboardGuitar;
 
 internal partial class FrmMain : Form
 {
-    private bool game_start;
+    private bool game_start = false;
+    private bool game_stop = false;
     private Timer game_timer;
     private DateTime game_start_time;
     private float noteSpeed = Game.speed;
@@ -21,9 +24,9 @@ internal partial class FrmMain : Form
     public bool isSpacebarHeld = false;
     private bool isTap = false;
     private DateTime spacePressTime;
-
-    // COLIN: Try to get the game to pause 
+    private int total_notes_hit;
     public bool isPaused = false;
+    Stopwatch stopwatch;
 
 
     // for double buffering
@@ -41,11 +44,7 @@ internal partial class FrmMain : Form
     {
         InitializeComponent();
 
-        // Subscribe to key events
-        this.KeyDown += FrmMain_KeyDown;
 
-        // Make sure the form is focused to receive key events
-        this.KeyPreview = true;
 
     }
 
@@ -84,9 +83,6 @@ internal partial class FrmMain : Form
             notes.Add(new(picNote, x));
         }
 
-        // ScoreTracker.InsertPlayData("test1", "ABC", "14/50");
-
-        this.Focus();
     }
 
     private void tmrPlay_Tick(object sender, EventArgs e)
@@ -101,7 +97,7 @@ internal partial class FrmMain : Form
                 note.Move(tmrPlay.Interval * (noteSpeed * 1.3));
                 if (note.CheckMiss(picTarget))
                 {
-                    score.Miss();
+                    score.Deduct(1);
                 }
             }
             else
@@ -121,10 +117,6 @@ internal partial class FrmMain : Form
         }
     }
 
-    private void FrmMain_KeyPress(object sender, KeyPressEventArgs e)
-    {
-
-    }
 
     /// <summary>
     ///  USER INPUT KEY CONTROLS 
@@ -133,29 +125,64 @@ internal partial class FrmMain : Form
     /// <param name="e"></param>
     private void FrmMain_KeyDown(object sender, KeyEventArgs e)
     {
+        // Hit the notes
         if (e.KeyCode == Keys.Space)
         {
             spacePressTime = DateTime.Now;
             isSpacebarHeld = false;
             picTarget.BackgroundImage = Resources.pressed;
         }
-        // COLIN: Currently closes the form. Change this to pause the game.
-        if (e.KeyCode == Keys.Escape)
+        // Start the game 
+        if (e.KeyCode == Keys.F)
         {
-            // hard to stop a foreach statement with another foreach statement....
-            // Will revist this when sober 
-            if (!isPaused)
+            if (!game_start)
             {
-                isPaused = true;
-                Game.GetInstance().CurSong.Stop();
+
+                // Start the game
+                label1.Dispose();
+                Game.GetInstance().CurSong.Play();
+                tmrPlay.Enabled = true;
+                game_start_time = DateTime.Now;
+                //game_timer.Interval= ((int)curSong.AudioLengthInMs);
+
+                // Prepare to call GameTimer_Tick (Ends the game) 
+                game_timer = new Timer();
+                game_timer.Interval = 1000;
+                game_timer.Tick += GameTimer_Tick;
+                game_timer.Start();
             }
             else
             {
-                isPaused = false;
-                Game.GetInstance().CurSong.Play();
-
+                // COLIN: Issue, if 'F' is pressed after the game starts, the game will break. 
+                // COLIN: This suppression function doesn't work. For some reason, the AudioAnalyzing Play() function just freaks out despite countermeasures
+                e.SuppressKeyPress = true;
             }
         }
+
+        // Pause the game and stop the song
+        if (e.KeyCode == Keys.Escape)
+        {
+            // Pause the game 
+            if (!isPaused && !game_stop)
+            {
+                stopwatch.Start();
+                isPaused = true;
+                if (!button1.Visible)
+                {
+                    button1.Visible = true;
+                }
+                Game.GetInstance().CurSong.Stop();
+            }
+            // Unpause the game 
+            else
+            {
+                stopwatch.Stop();
+                isPaused = false;
+                button1.Visible = false;
+                Game.GetInstance().CurSong.Play();
+            }
+        }
+
     }
 
     private void FrmMain_KeyUp(object sender, KeyEventArgs e)
@@ -199,6 +226,7 @@ internal partial class FrmMain : Form
             if (note.CheckHit(picTarget, isTap))
             {
                 score.Add(1);
+                total_notes_hit += 1;
                 lblScore.Text = score.Amount.ToString();
                 lblScore.Font = new Font("Arial", 42);
                 noteHit = true;
@@ -226,52 +254,29 @@ internal partial class FrmMain : Form
         }
     }
 
-    private void panBg_Paint(object sender, PaintEventArgs e)
-    {
-    }
-
-    private void start_button_Click(object sender, EventArgs e)
-    {
-        Console.WriteLine("game started");
-        Game.GetInstance().CurSong.Play();
-        game_start = true;
-        game_start_time = DateTime.Now;
-        tmrPlay.Enabled = true;
-
-        InitializeGameTimer();
-        game_timer.Start();
-
-        this.Controls.Remove(start_button);
-        start_button.Dispose();
-    }
-
-    private void InitializeGameTimer()
-    {
-        game_timer = new Timer();
-        game_timer.Interval = 1000; // Set the interval to 1 second
-        game_timer.Tick += GameTimer_Tick;
-    }
-
     private void GameTimer_Tick(object sender, EventArgs e)
     {
         TimeSpan elapsed = DateTime.Now - game_start_time;
 
-        if (elapsed.TotalMilliseconds >= curSong.AudioLengthInMs)
+
+        if (elapsed.TotalMilliseconds > curSong.AudioLengthInMs)
         {
-            lblScore.Text = score.Amount.ToString() + "/" + notes.Count().ToString();
-            game_timer.Stop(); // Stop the timer if the song is over
+            lblScore.Text = total_notes_hit.ToString() + "/" + notes.Count().ToString();
+            tmrPlay.Stop(); // Stop the timer if the song is over
             EndGame();
         }
     }
 
     private void EndGame()
     {
+        game_stop = true;
+        button1.Visible = true;
         this.KeyPreview = false;
         Game.GetInstance().CurSong.Stop();
         tmrPlay.Enabled = false;
     }
 
-    private void return_btn_Click(object sender, EventArgs e)
+    private void button1_Click(object sender, EventArgs e)
     {
         this.Close();
     }
