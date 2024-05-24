@@ -13,17 +13,33 @@ namespace HeroKeyboardGuitar;
 /*
  * this page right here is a god damn godsend https://mysqlconnector.net/tutorials/connect-ssh/
  * reference btw
+ * https://www.connectionstrings.com/mysql-connector-net-mysqlconnection/
+ * https://github.com/mysql-net/MySqlConnector/issues/571
+ * These arent the only references i used but i cannot find the other ones but these helped out a lot
  */
 
 internal static class ScoreTracker
 {
 
+
+    /*
+     * To get this to work you need to have an ssh server setup running a mysql server
+     * change sshHost to your ssh server ip addr
+     * change sshUsername to your user
+     * change sshPassword to your user password ( i know its in plaintext and thats really insecure but getting it to work with secret files or encryption was wacky )
+     * change mysqlUser to root or whatever user you want to use
+     * change mysqlPassowrd to your password
+     * 
+     * if you are running your sql server on a different port change it to that port
+     * if you have your sql server to accept all remote users change mysqlHost to 0.0.0.0
+     * 
+     */
     private const string sshHost = "";
     private const string sshUsername = "";
     private const string sshPassword = "";
     private const int sshPort = 22;
 
-    private const string mysqlHost = "";
+    private const string mysqlHost = "127.0.0.1";
     private const int mysqlPort = 3306;
     private const string mysqlDatabase = "PlayerScoresDB";
     private const string mysqlUser = "";
@@ -161,35 +177,39 @@ internal static class ScoreTracker
         CloseSshTunnel();
     }
 
-    internal static DataTable RetrievePlayData(string tableName)
+    internal static DataTable RetrievePlayData(string tableName, int topN = -1)
     {
-        SetupSshTunnel();
         DataTable playDataTable = new DataTable();
-
-        using (var connection = new MySqlConnection(GetMySqlConnectionString().ConnectionString))
+        try
         {
-            try
+            using (var connection = new MySqlConnection(GetMySqlConnectionString().ConnectionString))
             {
                 string query = $"SELECT * FROM `{tableName}`";
+                if (topN > 0)
+                {
+                    query += $" ORDER BY CAST(Score AS UNSIGNED) DESC LIMIT {topN}";
+                }
                 using (var adapter = new MySqlDataAdapter(query, connection))
                 {
                     adapter.Fill(playDataTable);
                 }
             }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine("MySQL Exception: " + ex.Message);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("General Exception: " + ex.Message);
-                throw;
-            }
         }
-
-        CloseSshTunnel();
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception: " + ex.Message);
+            throw;
+        }
+        finally
+        {
+            CloseSshTunnel();
+        }
         return playDataTable;
+    }
+
+    internal static DataTable GetTopScores(string tableName, int topN = 5)
+    {
+        return RetrievePlayData(tableName, topN);
     }
 
 }

@@ -2,6 +2,7 @@ using AudioAnalyzing;
 using HeroKeyboardGuitar.Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -302,7 +303,40 @@ internal partial class FrmMain : Form
         Game.GetInstance().CurSong.Stop();
         tmrPlay.Enabled = false;
         game_timer.Enabled = false;
+<<<<<<< Updated upstream
         game_timer.Dispose();
+=======
+
+        OnGameEnd(lblScore.Text.ToString());
+    }
+
+    private void OnGameEnd(string score)
+    {
+        using (var scoreInputForm = new FrmScoreInput())
+        {
+            scoreInputForm.ShowDialog();
+            if (scoreInputForm.UploadScore)
+            {
+                string playerId = scoreInputForm.PlayerID;
+                string tableName = Game.GetInstance().CurSongGenre.ToString(); // Replace with your actual table name
+                ScoreTracker.InsertPlayData(tableName, playerId, score);
+                MessageBox.Show("Score uploaded successfully!");
+
+                DataTable topScores = ScoreTracker.GetTopScores(tableName);
+                DisplayTopScores(topScores);
+            }
+        }
+    }
+
+    private void DisplayTopScores(DataTable topScores)
+    {
+        string message = "Top 5 Scores:\n";
+        foreach (DataRow row in topScores.Rows)
+        {
+            message += $"PlayerID: {row["PlayerID"]}, Score: {row["Score"]}\n";
+        }
+        MessageBox.Show(message, "Top Scores");
+>>>>>>> Stashed changes
     }
 
     private void button1_Click(object sender, EventArgs e)
