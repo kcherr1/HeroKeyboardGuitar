@@ -267,7 +267,7 @@ internal partial class FrmMain : Form
         // COLIN: Note that if the player paused at any time, this will not reach the end of the song 
         if (elapsed.TotalMilliseconds > curSong.AudioLengthInMs)
         {
-            lblScore.Text = total_notes_hit.ToString() + "/" + notes.Count().ToString();
+            lblScore.Text = score.Amount.ToString() + "/" + notes.Count().ToString();
             tmrPlay.Stop(); // Stop the timer if the song is over
             EndGame();
         }
