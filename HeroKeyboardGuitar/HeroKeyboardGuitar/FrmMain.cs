@@ -13,6 +13,7 @@ namespace HeroKeyboardGuitar;
 internal partial class FrmMain : Form {
     private bool game_start = false;
     private bool game_stop = false;
+    private bool gameStarted = false;
     private Timer game_timer;
     private DateTime game_start_time;
     private float noteSpeed = Game.speed;
@@ -106,16 +107,22 @@ internal partial class FrmMain : Form {
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void FrmMain_KeyDown(object sender, KeyEventArgs e) {
+    private void FrmMain_KeyDown(object sender, KeyEventArgs e)
+    {
         // Hit the notes
-        if (e.KeyCode == Keys.Space) {
+        if (e.KeyCode == Keys.Space)
+        {
             spacePressTime = DateTime.Now;
             isSpacebarHeld = false;
             picTarget.BackgroundImage = Resources.pressed;
         }
         // Start the game 
-        if (e.KeyCode == Keys.F) {
-            if (!game_start) {
+        if (e.KeyCode == Keys.F && !gameStarted)
+        {
+            // Set the flag to indicate that the game has started
+            gameStarted = true;
+            if (!game_start)
+            {
                 // Start the game
                 label1.Dispose();
                 Game.GetInstance().CurSong.Play();
@@ -129,7 +136,8 @@ internal partial class FrmMain : Form {
                 game_timer.Tick += GameTimer_Tick;
                 game_timer.Start();
             }
-            else {
+            else
+            {
                 // COLIN: Issue, if 'F' is pressed after the game starts, the game will break. 
                 // COLIN: This suppression function doesn't work. For some reason, the AudioAnalyzing Play() function just freaks out despite countermeasures
                 e.SuppressKeyPress = true;
@@ -137,11 +145,14 @@ internal partial class FrmMain : Form {
         }
 
         // Pause the game and stop the song
-        if (e.KeyCode == Keys.Escape) {
+        if (e.KeyCode == Keys.Escape)
+        {
             // Pause the game 
-            if (!isPaused && !game_stop) {
+            if (!isPaused && !game_stop)
+            {
                 isPaused = true;
-                if (!button1.Visible) {
+                if (!button1.Visible)
+                {
                     button1.Visible = true;
                 }
                 // Pause the song playback
@@ -149,19 +160,20 @@ internal partial class FrmMain : Form {
                 wasPlaying = true; // Indicate that the song was playing before pausing
             }
             // Unpause the game 
-            else {
+            else
+            {
                 game_start_time = DateTime.Now;
                 isPaused = false;
                 button1.Visible = false;
                 // Resume the song playback
-                if (wasPlaying) {
+                if (wasPlaying)
+                {
                     Game.GetInstance().CurSong.OutputDevice.Play();
                 }
                 wasPlaying = false; // Reset the flag
             }
         }
     }
-
     private void FrmMain_KeyUp(object sender, KeyEventArgs e) {
         if (e.KeyCode == Keys.Space) {
             var duration = (DateTime.Now - spacePressTime).TotalMilliseconds;
