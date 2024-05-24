@@ -46,13 +46,14 @@
             // 
             // open_instructions
             // 
+            open_instructions.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             open_instructions.BackColor = System.Drawing.Color.FromArgb(192, 255, 255);
             open_instructions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             open_instructions.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            open_instructions.Location = new System.Drawing.Point(1, 671);
+            open_instructions.Location = new System.Drawing.Point(493, 580);
             open_instructions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             open_instructions.Name = "open_instructions";
-            open_instructions.Size = new System.Drawing.Size(185, 81);
+            open_instructions.Size = new System.Drawing.Size(250, 100);
             open_instructions.TabIndex = 1;
             open_instructions.Text = "Instructions";
             open_instructions.UseVisualStyleBackColor = false;

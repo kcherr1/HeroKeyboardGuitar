@@ -84,7 +84,7 @@ internal partial class FrmMain : Form
             notes.Add(new(picNote, x));
         }
 
-        ScoreTracker.InsertPlayData("test1", "ABC", "14/50");
+        // ScoreTracker.InsertPlayData("test1", "ABC", "14/50");
 
         this.Focus();
     }

@@ -93,6 +93,8 @@
             // comboBox1
             // 
             comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
+            comboBox1.BackColor = System.Drawing.SystemColors.Window;
+            comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new System.Drawing.Point(126, 395);
             comboBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -123,6 +125,7 @@
             // comboBox3
             // 
             comboBox3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
+            comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox3.FormattingEnabled = true;
             comboBox3.Location = new System.Drawing.Point(955, 395);
             comboBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
